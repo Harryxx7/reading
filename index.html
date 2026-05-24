@@ -1253,7 +1253,7 @@
     function parseMarkdownData(mdText) {
       if (!mdText) return;
 
-      const lines = mdText.split('\n');
+      const lines = mdText.split(/\r?\n/);
       let sentences = [];
       let docTitle = "考研英语长难句精读手记";
       let docDesc = "";
@@ -1267,32 +1267,36 @@
         }
       }
 
-      const blocks = mdText.split(/\n##\s+/);
+      // 将文件通过 ## 进行切分 (兼容 Windows CRLF 换行)
+      const blocks = mdText.split(/\r?\n##\s+/);
+      
+      // 第一个块通常是标题和前言描述，抓取第一块中 H1 下面的普通段落
       if (blocks.length > 0) {
         const firstBlock = blocks[0];
-        const matchDesc = firstBlock.match(/\n([^#\-\*\>\s][^\n]+)/);
+        const matchDesc = firstBlock.match(/\r?\n([^#\-\*\>\s][^\r\n]+)/);
         if (matchDesc) docDesc = matchDesc[1];
       }
 
       for (let k = 1; k < blocks.length; k++) {
         const block = blocks[k];
-        const blockLines = block.split('\n');
+        const blockLines = block.split(/\r?\n/);
         const title = blockLines[0].trim();
         
         let originalText = "";
-        const quoteBlockMatches = block.match(/>\s*([^\n]+(\n>[^\n]+)*)/);
+        const quoteBlockMatches = block.match(/>\s*([^\r\n]+(\r?\n>[^\r\n]+)*)/);
         if (quoteBlockMatches) {
-          originalText = quoteBlockMatches[1].replace(/>/g, '').replace(/\n/g, ' ').trim();
+          originalText = quoteBlockMatches[1].replace(/>/g, '').replace(/\r?\n/g, ' ').trim();
         }
 
         let syntaxMarkdown = "";
         let vocabMarkdown = "";
         let translationMarkdown = "";
         
-        const subSections = block.split(/\n###\s+/);
+        // 兼容 Windows CRLF 换行进行 H3 版块拆分
+        const subSections = block.split(/\r?\n###\s+/);
         for(let s = 1; s < subSections.length; s++) {
           const subSec = subSections[s];
-          const secTitleLine = subSec.split('\n')[0].trim();
+          const secTitleLine = subSec.split(/\r?\n/)[0].trim();
           const secContent = subSec.substring(subSec.indexOf('\n') + 1).trim();
           
           if (secTitleLine.includes("句法") || secTitleLine.includes("拆解") || secTitleLine.includes("结构") || secTitleLine.includes("syntax")) {
@@ -1310,9 +1314,9 @@
           index: k - 1,
           title: title,
           original: originalText,
-          syntaxHTML: marked.parse(syntaxMarkdown),
-          vocabHTML: marked.parse(vocabMarkdown),
-          translationHTML: marked.parse(translationMarkdown),
+          syntaxHTML: safeMarkedParse(syntaxMarkdown),
+          vocabHTML: safeMarkedParse(vocabMarkdown),
+          translationHTML: safeMarkedParse(translationMarkdown),
           rawMarkdown: block
         });
       }
@@ -1322,6 +1326,88 @@
 
       // 仅在首次静默渲染之后执行：渲染长卷，并绑定菜单
       renderFlowMode(docTitle, docDesc);
+    }
+
+    // 安全解析 Markdown (防止 CDN 挂掉或离线时脚本崩溃)
+    function safeMarkedParse(text) {
+      if (typeof marked !== 'undefined' && marked.parse) {
+        try {
+          return marked.parse(text);
+        } catch (e) {
+          console.warn("Marked 解析失败，启用离线解析备用:", e);
+        }
+      }
+      return simpleMarkdownToHTML(text);
+    }
+
+    // 极简离线 Markdown 渲染器 (支持表格、加粗、代码、列表，保证 100% 离线可用且不崩溃)
+    function simpleMarkdownToHTML(text) {
+      if (!text) return '';
+      
+      let html = '';
+      const lines = text.split(/\r?\n/);
+      let inTable = false;
+      let inList = false;
+
+      for (let i = 0; i < lines.length; i++) {
+        let line = lines[i].trim();
+        if (!line) {
+          if (inTable) { inTable = false; html += '</table>'; }
+          if (inList) { inList = false; html += '</ul>'; }
+          continue;
+        }
+
+        // 处理表格
+        if (line.startsWith('|')) {
+          if (inList) { inList = false; html += '</ul>'; }
+          if (!inTable) {
+            inTable = true;
+            html += '<table>';
+          }
+          if (line.includes('---')) continue;
+
+          const cells = line.split('|').slice(1, -1);
+          html += '<tr>';
+          for (let cell of cells) {
+            const parsedCell = parseInlineMarkdown(cell.trim());
+            html += `<td>${parsedCell}</td>`;
+          }
+          html += '</tr>';
+        } 
+        // 处理无序列表
+        else if (line.startsWith('* ') || line.startsWith('- ')) {
+          if (inTable) { inTable = false; html += '</table>'; }
+          if (!inList) {
+            inList = true;
+            html += '<ul>';
+          }
+          const parsedLine = parseInlineMarkdown(line.substring(2).trim());
+          html += `<li>${parsedLine}</li>`;
+        } 
+        // 处理普通段落
+        else {
+          if (inTable) { inTable = false; html += '</table>'; }
+          if (inList) { inList = false; html += '</ul>'; }
+          
+          if (line.startsWith('###')) {
+            html += `<h4 class="zone-title sans-text">${parseInlineMarkdown(line.replace(/#/g, '').trim())}</h4>`;
+          } else {
+            html += `<p>${parseInlineMarkdown(line)}</p>`;
+          }
+        }
+      }
+
+      if (inTable) html += '</table>';
+      if (inList) html += '</ul>';
+      return html;
+    }
+
+    // 解析行内 Markdown (加粗、斜体、行内代码)
+    function parseInlineMarkdown(text) {
+      return text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/`(.*?)`/g, '<code>$1</code>');
     }
 
     // 主解析并重绘接口
