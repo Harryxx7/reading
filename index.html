@@ -3,1983 +3,1639 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>考研英语长难句精读手记 - 暖色宣纸风</title>
-  
-  <!-- 引入 Google Fonts 高级西文字体 (Georgia 备用，这里引入衬线体与无衬线体) -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
-  
-  <!-- 引入 Marked.js 用于解析 Markdown -->
-  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-
-  <!-- ==========================================
-       🌙 极速防闪烁主题追踪器 (Head Sync Block)
-       ========================================== -->
-  <script>
-    (function() {
-      // 在页面任何 DOM 渲染之前，以阻塞式脚本瞬间设置正确的主题属性，完美消除“首屏白光闪烁”
-      const savedTheme = sessionStorage.getItem('theme-preference');
-      if (savedTheme) {
-        document.documentElement.setAttribute('data-theme', savedTheme);
-        return;
-      }
-      const hour = new Date().getHours();
-      const isNightTime = hour >= 18 || hour < 6;
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-      if (isNightTime || prefersDark) {
-        document.documentElement.setAttribute('data-theme', 'dark');
-      } else {
-        document.documentElement.setAttribute('data-theme', 'light');
-      }
-    })();
-  </script>
-
+  <title>考研英语阅读技巧手记</title>
   <style>
-    /* ==========================================
-       🎨 设计系统设计标记 (CSS Variables & Tokens)
-       ========================================== */
     :root {
-      /* 背景与卡片 - 暖色宣纸底色 */
-      --bg: #FBF9F4;             
-      --bg-elevated: #FFFFFF;    
-      --card: #F2EBDC;           
-      --card-strong: #ECE2CC;    
-      --border: #E8E0D0;         
-      --border-strong: #D4C9B0;  
-      --table-alt: #F5F0E5;      
-      
-      /* 文字色彩 */
-      --text-primary: #2D2A26;   /* 柔和炭黑 */
-      --text-secondary: #6B6660; /* 辅助灰褐 */
-      --text-muted: #9A9489;     /* 哑光占位 */
-      
-      /* 语法成分高亮与特色调色板 */
-      --accent-primary: #B85C38;   /* 赭石红（主句） */
-      --accent-secondary: #2B5A87; /* 沉静蓝（从句/修饰） */
-      --accent-tertiary: #5B7A4B;  /* 苔藓绿（状语/说明） */
-      --accent-purple: #7A5C8F;    /* 哑光紫（定语/插入） */
-      --highlight: #FFF1B8;        /* 荧光黄 */
-      
-      /* 投影与动效 */
-      --shadow: 0 10px 30px rgba(45, 42, 38, 0.03), 0 1px 3px rgba(45, 42, 38, 0.02);
-      --transition-spring: 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
-      --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      
-      --topbar-height: 56px;
-      --sidebar-width: 260px;
+      --bg: #faf7ef;
+      --surface: #fffdf8;
+      --surface-soft: #f1eadc;
+      --surface-strong: #e6dcc8;
+      --ink: #28231d;
+      --ink-soft: #625b50;
+      --ink-muted: #918879;
+      --line: #ded4c1;
+      --line-strong: #c7b89d;
+      --accent: #b85c38;
+      --accent-2: #2f6670;
+      --accent-3: #6c7f43;
+      --mark: #fff0a6;
+      --shadow: 0 18px 45px rgba(62, 47, 27, 0.08), 0 2px 8px rgba(62, 47, 27, 0.05);
+      --topbar: 64px;
+      --sidebar: 300px;
+      --rail: 290px;
+      --radius: 8px;
+      --speed: 180ms ease;
     }
 
     [data-theme="dark"] {
-      /* 背景与卡片 - 温暖曜石黑 */
-      --bg: #1A1714;             
-      --bg-elevated: #24201A;    
-      --card: #25201A;           
-      --card-strong: #302A22;    
-      --border: #332C24;         
-      --border-strong: #463E33;  
-      --table-alt: #201C16;      
-      
-      /* 文字色彩 */
-      --text-primary: #E8E2D5;   /* 柔和羊皮纸白 */
-      --text-secondary: #B5AEA0; /* 辅助灰 */
-      --text-muted: #8A8478;     
-      
-      /* 语法高亮 */
-      --accent-primary: #E89568;   
-      --accent-secondary: #7BA8D9; 
-      --accent-tertiary: #9CB888;  
-      --accent-purple: #B89BC9;    
-      --highlight: #5C4F1E;        
-      
-      --shadow: 0 10px 40px rgba(0, 0, 0, 0.4), 0 1px 8px rgba(0, 0, 0, 0.2);
+      --bg: #17130f;
+      --surface: #211c16;
+      --surface-soft: #2a231b;
+      --surface-strong: #352c21;
+      --ink: #eee5d6;
+      --ink-soft: #c0b6a6;
+      --ink-muted: #8f8576;
+      --line: #382f25;
+      --line-strong: #544838;
+      --accent: #ee9868;
+      --accent-2: #7bb7bd;
+      --accent-3: #b2c47c;
+      --mark: #5a4917;
+      --shadow: 0 18px 55px rgba(0, 0, 0, 0.35), 0 2px 10px rgba(0, 0, 0, 0.28);
     }
 
-    /* 全局复位与排版规范 */
     * {
       box-sizing: border-box;
+    }
+
+    html,
+    body {
       margin: 0;
-      padding: 0;
+      min-height: 100%;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      letter-spacing: 0;
     }
 
     body {
-      background-color: var(--bg);
-      color: var(--text-primary);
-      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
-      transition: background-color var(--transition-smooth), color var(--transition-smooth);
       height: 100vh;
       overflow: hidden;
-      display: flex;
-      flex-direction: column;
     }
 
-    /* 衬线体 (用于英文长难句) */
-    .serif-text {
-      font-family: 'Lora', Charter, "Iowan Old Style", "Source Serif Pro", Georgia, serif;
+    button,
+    input {
+      font: inherit;
     }
 
-    /* 无衬线体 */
-    .sans-text {
-      font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
-    }
-
-    /* ==========================================
-       🏛 顶栏与布局架构 (Topbar & Sidebar Layout)
-       ========================================== */
     .topbar {
-      height: var(--topbar-height);
-      background-color: color-mix(in srgb, var(--bg) 80%, transparent);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 0.5px solid var(--border);
+      height: var(--topbar);
+      border-bottom: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(18px);
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 24px;
-      z-index: 100;
+      gap: 18px;
+      padding: 0 22px;
       position: relative;
+      z-index: 10;
     }
 
-    .logo-area {
+    .brand {
       display: flex;
       align-items: center;
-      gap: 10px;
-    }
-
-    .logo-icon {
-      width: 24px;
-      height: 24px;
-      fill: var(--accent-primary);
-    }
-
-    .logo-text {
-      font-size: 16px;
-      font-weight: 600;
-      letter-spacing: 0.5px;
-      color: var(--text-primary);
-    }
-
-    .controls-area {
-      display: flex;
-      align-items: center;
+      min-width: 260px;
       gap: 12px;
     }
 
-    /* 按钮基础样式 */
-    .btn {
-      background-color: var(--bg-elevated);
-      border: 0.5px solid var(--border);
-      color: var(--text-secondary);
-      padding: 8px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13px;
-      font-weight: 500;
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      transition: all var(--transition-smooth);
-      box-shadow: var(--shadow);
+    .brand-mark {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--accent);
+      display: grid;
+      place-items: center;
+      color: var(--accent);
+      flex: 0 0 auto;
     }
 
-    .btn:hover {
-      border-color: var(--border-strong);
-      color: var(--text-primary);
-      background-color: var(--card);
+    .brand-mark::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border: 2px solid currentColor;
     }
 
-    .btn-active {
-      background-color: var(--accent-primary);
-      color: #FFFFFF !important;
-      border-color: var(--accent-primary);
-    }
-
-    .btn-active:hover {
-      background-color: color-mix(in srgb, var(--accent-primary) 90%, #000);
-      border-color: var(--accent-primary);
-    }
-
-    .icon-btn {
-      width: 36px;
-      height: 36px;
-      padding: 0;
-      justify-content: center;
-      border-radius: 50%;
-    }
-
-    .icon-btn svg {
-      width: 18px;
-      height: 18px;
-      fill: currentColor;
-    }
-
-    /* 主容器 */
-    .app-container {
-      flex: 1;
-      display: flex;
-      height: calc(100vh - var(--topbar-height));
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* 侧边栏 */
-    .sidebar {
-      width: var(--sidebar-width);
-      border-right: 0.5px solid var(--border);
-      background-color: color-mix(in srgb, var(--bg) 95%, transparent);
-      display: flex;
-      flex-direction: column;
-      transition: transform var(--transition-smooth), width var(--transition-smooth);
-      overflow: hidden;
-      z-index: 90;
-    }
-
-    .sidebar-header {
-      padding: 16px 20px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--text-muted);
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      border-bottom: 0.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .sidebar-list {
-      flex: 1;
-      overflow-y: auto;
-      padding: 12px 8px;
-      list-style: none;
-    }
-
-    .sidebar-item {
-      padding: 10px 14px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 13.5px;
-      color: var(--text-secondary);
-      margin-bottom: 4px;
-      transition: all var(--transition-smooth);
+    .brand-title {
+      font-size: 17px;
+      font-weight: 750;
       white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      gap: 8px;
     }
 
-    .sidebar-item::before {
-      content: '';
-      display: inline-block;
-      width: 6px;
-      height: 6px;
-      border-radius: 50%;
-      background-color: var(--border-strong);
-      transition: background-color var(--transition-smooth);
-    }
-
-    .sidebar-item:hover {
-      background-color: var(--card);
-      color: var(--text-primary);
-    }
-
-    .sidebar-item.active {
-      background-color: var(--card-strong);
-      color: var(--text-primary);
-      font-weight: 500;
-    }
-
-    .sidebar-item.active::before {
-      background-color: var(--accent-primary);
-    }
-
-    /* 主展示区 */
-    .main-viewport {
-      flex: 1;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      background-color: var(--bg);
-    }
-
-    /* ==========================================
-       ⚡ 精读卡片模式 (Interactive Card Layout)
-       ========================================== */
-    .card-mode-container {
-      width: 100%;
-      height: 100%;
-      padding: 24px;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-    }
-
-    .sentence-card {
-      background-color: var(--bg-elevated);
-      border: 0.5px solid var(--border);
-      border-radius: 16px;
-      box-shadow: var(--shadow);
-      flex: 1;
-      display: none; /* JS 控制 active 显示 */
-      flex-direction: column;
-      overflow: hidden;
-      transition: background-color var(--transition-smooth), border-color var(--transition-smooth);
-    }
-
-    .sentence-card.active {
-      display: flex;
-      animation: cardEntrance var(--transition-spring);
-    }
-
-    @keyframes cardEntrance {
-      0% {
-        opacity: 0;
-        transform: translateY(18px) scale(0.99);
-      }
-      100% {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-
-    /* 卡片头部 */
-    .card-header {
-      padding: 18px 24px;
-      border-bottom: 0.5px solid var(--border);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: color-mix(in srgb, var(--card) 30%, var(--bg-elevated));
-    }
-
-    .card-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--text-primary);
+    .toolbar {
       display: flex;
       align-items: center;
       gap: 10px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
     }
 
-    .badge {
-      background-color: var(--accent-primary);
-      color: #FFFFFF;
-      font-size: 11px;
-      padding: 2px 8px;
-      border-radius: 10px;
-      font-weight: 600;
+    .btn {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--ink-soft);
+      padding: 8px 12px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+      transition: transform var(--speed), background var(--speed), color var(--speed), border-color var(--speed);
     }
 
-    /* 卡片内容分区 */
-    .card-body {
-      flex: 1;
+    .btn:hover {
+      transform: translateY(-1px);
+      color: var(--ink);
+      border-color: var(--line-strong);
+      background: var(--surface-soft);
+    }
+
+    .btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .btn.icon-only {
+      width: 40px;
+      padding: 0;
+      border-radius: 50%;
+    }
+
+    .app {
+      height: calc(100vh - var(--topbar));
+      display: grid;
+      grid-template-columns: var(--sidebar) minmax(0, 1fr) var(--rail);
+      min-height: 0;
+    }
+
+    .sidebar {
+      border-right: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 92%, var(--surface));
       display: flex;
       flex-direction: column;
+      min-height: 0;
+    }
+
+    .panel-head {
+      padding: 18px 20px 14px;
+      border-bottom: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .panel-title {
+      margin: 0;
+      font-size: 13px;
+      color: var(--ink-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+
+    .count-pill,
+    .tag {
+      border-radius: 999px;
+      background: var(--surface-strong);
+      color: var(--ink-soft);
+      padding: 3px 9px;
+      font-size: 12px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+
+    .search-wrap {
+      padding: 14px 14px 6px;
+    }
+
+    .search-input {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      border-radius: var(--radius);
+      padding: 10px 12px;
+      outline: none;
+    }
+
+    .search-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+    }
+
+    .nav-list {
+      list-style: none;
+      padding: 8px 10px 18px;
+      margin: 0;
+      overflow: auto;
+      min-height: 0;
+    }
+
+    .nav-item {
+      width: 100%;
+      border: 0;
+      background: transparent;
+      color: var(--ink-soft);
+      text-align: left;
+      border-radius: var(--radius);
+      padding: 11px 12px;
+      cursor: pointer;
+      display: grid;
+      grid-template-columns: 30px minmax(0, 1fr);
+      gap: 8px;
+      align-items: start;
+      transition: background var(--speed), color var(--speed);
+    }
+
+    .nav-item:hover {
+      background: var(--surface-soft);
+      color: var(--ink);
+    }
+
+    .nav-item.active {
+      background: var(--surface-strong);
+      color: var(--ink);
+      font-weight: 750;
+    }
+
+    .nav-num {
+      color: var(--accent);
+      font-weight: 850;
+      font-size: 13px;
+      padding-top: 1px;
+    }
+
+    .nav-text {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      line-height: 1.45;
+    }
+
+    .main {
+      min-width: 0;
+      min-height: 0;
+      background: var(--bg);
       overflow: hidden;
     }
 
-    /* 区域 1：英文原句区域 */
-    .zone-original {
-      padding: 24px;
-      border-bottom: 0.5px solid var(--border);
-      background-color: color-mix(in srgb, var(--card) 10%, var(--bg-elevated));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-    }
-
-    .quote-content {
-      font-size: 21px;
-      line-height: 1.6;
-      color: var(--text-primary);
-      text-align: center;
-      max-width: 900px;
-      font-weight: 400;
-      position: relative;
-    }
-
-    .quote-content::before {
-      content: '“';
-      position: absolute;
-      left: -24px;
-      top: -10px;
-      font-size: 48px;
-      color: var(--border-strong);
-      opacity: 0.5;
-      font-family: Georgia, serif;
-    }
-
-    /* 区域 2：双栏区域 */
-    .zone-middle {
-      flex: 1;
-      min-height: 0; /* 激活子项独立滚动 */
-      display: grid;
-      grid-template-columns: 58fr 42fr;
-      border-bottom: 0.5px solid var(--border);
-    }
-
-    .column-zone {
+    .focus-view,
+    .flow-view {
       height: 100%;
-      overflow-y: auto;
-      padding: 24px;
-      transition: opacity var(--transition-smooth), filter var(--transition-smooth);
+      min-height: 0;
     }
 
-    .column-left {
-      border-right: 0.5px solid var(--border);
-    }
-
-    .zone-title {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--accent-primary);
-      letter-spacing: 0.5px;
-      margin-bottom: 16px;
+    .focus-view {
+      padding: 22px;
       display: flex;
-      align-items: center;
-      gap: 6px;
+    }
+
+    .lesson-card {
+      width: 100%;
+      min-width: 0;
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto;
+      overflow: hidden;
+    }
+
+    .lesson-head {
+      border-bottom: 1px solid var(--line);
+      padding: 20px 24px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 18px;
+      background: color-mix(in srgb, var(--surface-soft) 42%, var(--surface));
+    }
+
+    .lesson-kicker {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
-    .zone-title svg {
-      width: 14px;
-      height: 14px;
-      fill: currentColor;
+    .lesson-title {
+      margin: 0;
+      font-size: clamp(22px, 2.3vw, 34px);
+      line-height: 1.2;
+      letter-spacing: 0;
     }
 
-    /* 区域 3：底部翻译与启示 */
-    .zone-translation {
+    .lesson-meta {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .section-strip {
+      border-bottom: 1px solid var(--line);
+      padding: 12px 18px;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      background: var(--surface);
+    }
+
+    .section-chip {
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink-soft);
+      border-radius: 999px;
+      padding: 7px 11px;
+      white-space: nowrap;
+      cursor: pointer;
+      font-size: 13px;
+    }
+
+    .section-chip:hover,
+    .section-chip.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: color-mix(in srgb, var(--accent) 10%, var(--surface));
+    }
+
+    .lesson-body {
+      min-height: 0;
+      overflow: auto;
       padding: 24px;
-      background-color: color-mix(in srgb, var(--card) 15%, var(--bg-elevated));
-      overflow-y: auto;
-      max-height: 180px;
-      min-height: 100px;
-      transition: opacity var(--transition-smooth), filter var(--transition-smooth);
+      scroll-behavior: smooth;
     }
 
-    /* 卡片底栏导航 */
-    .card-footer {
-      padding: 14px 24px;
-      border-top: 0.5px solid var(--border);
+    .lesson-footer {
+      border-top: 1px solid var(--line);
+      padding: 14px 18px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      background-color: var(--bg-elevated);
+      gap: 12px;
+      background: var(--surface);
     }
 
-    /* ==========================================
-       📜 长卷模式 (Continuous Flow Layout)
-       ========================================== */
-    .flow-mode-container {
-      width: 100%;
-      height: 100%;
-      overflow-y: auto;
-      padding: 40px 24px;
-      display: none; /* JS 控制显示 */
+    .progress-text {
+      color: var(--ink-muted);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
     }
 
-    .flow-content {
-      max-width: 960px;
+    .flow-view {
+      overflow: auto;
+      padding: 34px 26px 60px;
+      scroll-behavior: smooth;
+    }
+
+    .flow-shell {
+      max-width: 980px;
       margin: 0 auto;
     }
 
-    .flow-header {
-      text-align: center;
-      margin-bottom: 48px;
-      padding-bottom: 24px;
-      border-bottom: 0.5px solid var(--border-strong);
+    .flow-title {
+      border-bottom: 1px solid var(--line-strong);
+      padding-bottom: 22px;
+      margin-bottom: 26px;
     }
 
-    .flow-header h1 {
-      font-size: 32px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 12px;
+    .flow-title h1 {
+      margin: 0 0 10px;
+      font-size: clamp(28px, 4vw, 48px);
+      letter-spacing: 0;
     }
 
-    .flow-header p {
-      font-size: 15px;
-      color: var(--text-secondary);
+    .flow-title p {
+      margin: 0;
+      color: var(--ink-soft);
+      line-height: 1.8;
     }
 
-    .flow-card-item {
-      background-color: var(--bg-elevated);
-      border: 0.5px solid var(--border);
-      border-radius: 12px;
-      padding: 30px;
-      margin-bottom: 32px;
-      box-shadow: var(--shadow);
+    .flow-section {
+      padding: 28px 0;
+      border-bottom: 1px solid var(--line);
+      scroll-margin-top: 18px;
     }
 
-    .flow-card-title {
-      font-size: 18px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 16px;
-      padding-bottom: 10px;
-      border-bottom: 0.5px solid var(--border);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+    .flow-section h2 {
+      margin-top: 0;
     }
 
-    .flow-original {
-      font-size: 18px;
-      line-height: 1.6;
-      color: var(--text-primary);
-      padding: 16px 20px;
-      background-color: var(--card);
-      border-radius: 8px;
-      margin-bottom: 24px;
-      border-left: 3px solid var(--accent-primary);
+    .reader-rail {
+      border-left: 1px solid var(--line);
+      background: color-mix(in srgb, var(--bg) 90%, var(--surface));
+      padding: 18px;
+      overflow: auto;
+      min-height: 0;
     }
 
-    .flow-sections {
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
+    .rail-block {
+      margin-bottom: 22px;
     }
 
-    /* ==========================================
-       🎨 Markdown 内容样式美化 (Markdown Styling)
-       ========================================== */
-    
-    /* 表格美化 */
-    table {
+    .rail-title {
+      margin: 0 0 12px;
+      color: var(--ink-muted);
+      font-size: 12px;
+      font-weight: 850;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .quick-grid {
+      display: grid;
+      gap: 8px;
+    }
+
+    .quick-card {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 11px 12px;
+      line-height: 1.55;
+      color: var(--ink-soft);
+      font-size: 14px;
+    }
+
+    .quick-card strong {
+      color: var(--ink);
+    }
+
+    .stat-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .stat {
+      border: 1px solid var(--line);
+      background: var(--surface);
+      border-radius: var(--radius);
+      padding: 12px;
+    }
+
+    .stat b {
+      display: block;
+      color: var(--accent);
+      font-size: 22px;
+      line-height: 1;
+      margin-bottom: 5px;
+    }
+
+    .stat span {
+      color: var(--ink-muted);
+      font-size: 12px;
+    }
+
+    .markdown {
+      font-size: 16px;
+      line-height: 1.85;
+      color: var(--ink-soft);
+    }
+
+    .markdown h2,
+    .markdown h3,
+    .markdown h4 {
+      color: var(--ink);
+      line-height: 1.35;
+      letter-spacing: 0;
+    }
+
+    .markdown h2 {
+      font-size: 28px;
+      margin: 0 0 18px;
+    }
+
+    .markdown h3 {
+      font-size: 21px;
+      margin: 30px 0 12px;
+      padding-left: 12px;
+      border-left: 4px solid var(--accent);
+    }
+
+    .markdown h4 {
+      font-size: 17px;
+      margin: 22px 0 8px;
+      color: var(--accent-2);
+    }
+
+    .markdown p {
+      margin: 10px 0;
+    }
+
+    .markdown ul,
+    .markdown ol {
+      padding-left: 1.35em;
+      margin: 10px 0 18px;
+    }
+
+    .markdown li {
+      margin: 6px 0;
+    }
+
+    .markdown strong {
+      color: var(--ink);
+      font-weight: 850;
+    }
+
+    .markdown em {
+      color: var(--accent-2);
+      font-style: italic;
+    }
+
+    .markdown code {
+      background: var(--surface-soft);
+      border: 1px solid var(--line);
+      border-radius: 5px;
+      padding: 1px 5px;
+      color: var(--accent);
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 0.92em;
+    }
+
+    .markdown blockquote {
+      margin: 16px 0;
+      padding: 14px 18px;
+      border-left: 4px solid var(--accent-3);
+      background: color-mix(in srgb, var(--accent-3) 10%, var(--surface));
+      color: var(--ink-soft);
+      border-radius: 0 var(--radius) var(--radius) 0;
+    }
+
+    .markdown table {
       width: 100%;
       border-collapse: collapse;
-      margin-bottom: 16px;
-      font-size: 13.5px;
-      line-height: 1.5;
+      margin: 16px 0 22px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-size: 15px;
     }
 
-    th, td {
-      padding: 10px 12px;
+    .markdown th,
+    .markdown td {
+      padding: 11px 12px;
+      border-bottom: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      vertical-align: top;
       text-align: left;
-      border-bottom: 0.5px solid var(--border);
     }
 
-    th {
-      font-weight: 600;
-      color: var(--text-primary);
-      background-color: var(--card);
-      border-top: 0.5px solid var(--border);
+    .markdown th {
+      color: var(--ink);
+      background: var(--surface-soft);
+      font-weight: 850;
     }
 
-    tr:nth-child(even) td {
-      background-color: var(--table-alt);
+    .markdown tr:nth-child(even) td {
+      background: color-mix(in srgb, var(--surface-soft) 35%, transparent);
     }
 
-    td strong {
-      color: var(--accent-primary);
+    .empty {
+      padding: 40px;
+      text-align: center;
+      color: var(--ink-muted);
     }
 
-    /* 列表与文字修饰 */
-    ul, ol {
-      padding-left: 20px;
-      margin-bottom: 12px;
+    .hidden {
+      display: none !important;
     }
 
-    li {
-      font-size: 13.5px;
-      line-height: 1.6;
-      color: var(--text-secondary);
-      margin-bottom: 6px;
+    .test-mode .markdown {
+      filter: blur(10px);
+      opacity: 0.2;
+      transition: filter var(--speed), opacity var(--speed);
     }
 
-    li strong {
-      color: var(--text-primary);
-      font-weight: 600;
+    .test-mode .markdown:hover,
+    .test-mode .markdown.reveal {
+      filter: blur(0);
+      opacity: 1;
     }
 
-    /* 荧光笔高亮 */
-    mark {
-      background-color: var(--highlight);
-      color: inherit;
-      padding: 0 2px;
-      border-radius: 2px;
-    }
-
-    /* ==========================================
-       🔍 离线/CORS 拖拽降级组件 (CORS Fallback)
-       ========================================== */
-    .file-uploader-container {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: var(--bg);
-      display: none; /* JS 控制显示 */
+    .uploader {
+      position: fixed;
+      inset: 0;
+      background: color-mix(in srgb, var(--bg) 90%, transparent);
+      backdrop-filter: blur(12px);
+      z-index: 30;
+      display: none;
       align-items: center;
       justify-content: center;
       padding: 24px;
-      z-index: 1000;
     }
 
-    .uploader-card {
-      background-color: var(--bg-elevated);
-      border: 1px dashed var(--border-strong);
-      border-radius: 20px;
-      padding: 48px;
-      max-width: 560px;
-      text-align: center;
+    .uploader.active {
+      display: flex;
+    }
+
+    .upload-box {
+      width: min(560px, 100%);
+      background: var(--surface);
+      border: 1px dashed var(--line-strong);
+      border-radius: 18px;
+      padding: 34px;
       box-shadow: var(--shadow);
-      transition: all var(--transition-smooth);
+      text-align: center;
     }
 
-    .uploader-card.dragover {
-      background-color: var(--card);
-      border-color: var(--accent-primary);
-      transform: scale(1.02);
+    .upload-box h2 {
+      margin: 0 0 10px;
     }
 
-    .uploader-icon {
-      width: 64px;
-      height: 64px;
-      fill: var(--accent-primary);
-      margin-bottom: 24px;
-      opacity: 0.8;
+    .upload-box p {
+      margin: 0 0 20px;
+      color: var(--ink-soft);
+      line-height: 1.7;
     }
 
-    .uploader-title {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--text-primary);
-      margin-bottom: 12px;
+    .upload-actions {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
 
-    .uploader-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.6;
-      margin-bottom: 24px;
-    }
-
-    .file-input-btn {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .file-input-btn input[type="file"] {
+    .file-input {
       position: absolute;
-      font-size: 100px;
-      right: 0;
-      top: 0;
+      width: 1px;
+      height: 1px;
       opacity: 0;
-      cursor: pointer;
+      pointer-events: none;
     }
 
-    /* ==========================================
-       🧠 Active Recall 刮刮卡自测模式
-       ========================================== */
-    .test-masked .column-right,
-    .test-masked .zone-translation,
-    .test-masked .flow-sections {
-      filter: blur(14px);
-      opacity: 0.15;
-      cursor: help;
-      transition: filter 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .test-masked .column-right:hover,
-    .test-masked .zone-translation:hover,
-    .test-masked .flow-sections:hover {
-      filter: blur(0);
-      opacity: 1;
-      cursor: default;
-    }
-
-    .test-masked .column-right.reveal-touch,
-    .test-masked .zone-translation.reveal-touch,
-    .test-masked .flow-sections.reveal-touch {
-      filter: blur(0) !important;
-      opacity: 1 !important;
-      cursor: default;
-    }
-
-    /* ==========================================
-       📱 移动端与响应式适配
-       ========================================== */
-    @media (max-width: 1100px) {
+    @media (max-width: 1180px) {
       body {
-        height: auto !important;
-        overflow-y: auto !important;
+        height: auto;
+        overflow: auto;
       }
 
       .topbar {
+        height: auto;
+        min-height: var(--topbar);
         position: sticky;
         top: 0;
-      }
-
-      .app-container {
-        height: auto !important;
         flex-direction: column;
-        overflow: visible !important;
-      }
-
-      .sidebar {
-        width: 100% !important;
-        height: 220px !important;
-        border-right: none;
-        border-bottom: 0.5px solid var(--border);
-        flex-shrink: 0;
-      }
-
-      .main-viewport {
-        height: auto !important;
-        overflow: visible !important;
-      }
-
-      .card-mode-container {
-        height: auto !important;
-        overflow: visible !important;
+        align-items: stretch;
         padding: 12px;
       }
 
-      .sentence-card {
-        height: auto !important;
-        overflow: visible !important;
+      .brand {
+        min-width: 0;
       }
 
-      .card-body {
-        height: auto !important;
-        overflow: visible !important;
+      .toolbar {
+        justify-content: flex-start;
       }
 
-      .zone-original {
-        position: sticky;
-        top: var(--topbar-height);
-        z-index: 80;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+      .app {
+        height: auto;
+        display: block;
       }
 
-      .zone-middle {
-        grid-template-columns: 1fr !important;
-        height: auto !important;
-        min-height: 0 !important;
+      .sidebar,
+      .reader-rail {
+        border: 0;
       }
 
-      .column-zone {
-        height: auto !important;
-        overflow-y: visible !important;
-        border-right: none !important;
+      .sidebar {
+        max-height: 280px;
+        border-bottom: 1px solid var(--line);
       }
 
-      .column-left {
-        border-bottom: 0.5px solid var(--border);
+      .reader-rail {
+        display: none;
       }
 
-      .zone-translation {
-        max-height: none !important;
-        height: auto !important;
-        overflow-y: visible !important;
+      .main {
+        overflow: visible;
+      }
+
+      .focus-view,
+      .flow-view {
+        height: auto;
+      }
+
+      .focus-view {
+        padding: 12px;
+      }
+
+      .lesson-card {
+        display: block;
+      }
+
+      .lesson-body {
+        overflow: visible;
+      }
+
+      .lesson-head,
+      .lesson-footer {
+        flex-direction: column;
+        align-items: stretch;
       }
     }
 
-    /* ==========================================
-       🖨️ PDF 印刷级打印专用优化 (@media print)
-       ========================================== */
     @media print {
       body {
-        background-color: #FFFFFF !important;
-        color: #000000 !important;
         height: auto !important;
         overflow: visible !important;
-        font-size: 12pt !important;
+        background: #fff !important;
+        color: #000 !important;
       }
 
-      /* 强行背景输出 */
-      * {
-        -webkit-print-color-adjust: exact !important;
-        print-color-adjust: exact !important;
-      }
-
-      /* 隐藏所有界面控件、顶栏、侧边栏、自测状态 */
-      .topbar, 
-      .sidebar, 
-      .card-footer, 
-      .no-print, 
-      .file-uploader-container,
-      .controls-area,
-      .btn,
-      .mode-controls {
+      .topbar,
+      .sidebar,
+      .reader-rail,
+      .lesson-footer,
+      .section-strip,
+      .uploader {
         display: none !important;
       }
 
-      /* 移除模糊遮罩，打印必须全部清晰 */
-      .test-masked .column-right,
-      .test-masked .zone-translation,
-      .test-masked .flow-sections {
+      .app,
+      .main,
+      .flow-view {
+        display: block !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+
+      .focus-view {
+        display: none !important;
+      }
+
+      .flow-view,
+      .flow-shell {
+        padding: 0 !important;
+        max-width: none !important;
+      }
+
+      .flow-section {
+        page-break-before: always;
+      }
+
+      .flow-section:first-of-type {
+        page-break-before: avoid;
+      }
+
+      .markdown,
+      .markdown * {
+        color: #000 !important;
         filter: none !important;
         opacity: 1 !important;
-      }
-
-      /* 强行展示全流文档 */
-      .app-container {
-        display: block !important;
-        height: auto !important;
-        overflow: visible !important;
-      }
-
-      .main-viewport {
-        display: block !important;
-        height: auto !important;
-        overflow: visible !important;
-      }
-
-      .card-mode-container {
-        display: none !important; /* 打印时隐藏单卡模式，改用打印结构 */
-      }
-
-      .flow-mode-container {
-        display: block !important;
-        padding: 0 !important;
-        height: auto !important;
-        overflow: visible !important;
-      }
-
-      .flow-content {
-        max-width: 100% !important;
-      }
-
-      .flow-card-item {
-        box-shadow: none !important;
-        border: none !important;
-        border-bottom: 1px solid #CCCCCC !important;
-        margin-bottom: 0 !important;
-        padding: 30px 0 !important;
-        /* 核心：每句卡片在打印时自动插入分页符，实现一句一页的完美 PDF */
-        page-break-before: always !important;
-      }
-
-      .flow-card-item:first-of-type {
-        page-break-before: avoid !important;
-      }
-
-      .flow-original {
-        background-color: #F8F9FA !important;
-        border: 1px solid #E2E8F0 !important;
-        border-left: 4px solid #B85C38 !important;
-        color: #000000 !important;
-      }
-
-      /* 打印排版表格适应 */
-      table {
-        page-break-inside: avoid !important;
-        width: 100% !important;
-      }
-
-      tr {
-        page-break-inside: avoid !important;
-      }
-
-      th {
-        background-color: #ECECEE !important;
-        color: #000000 !important;
-      }
-
-      tr:nth-child(even) td {
-        background-color: #F8F9FA !important;
       }
     }
   </style>
 </head>
 <body>
-
-  <!-- ==========================================
-       🏛 顶栏 (Topbar)
-       ========================================== -->
-  <header class="topbar no-print">
-    <div class="logo-area">
-      <!-- 带有东方宣纸美感的印章/Logo -->
-      <svg class="logo-icon" viewBox="0 0 24 24">
-        <path d="M4 6H20V18H4V6M2 4V20H22V4H2M6 8V16H18V8H6Z" />
-      </svg>
-      <span class="logo-text">考研英语长难句精读</span>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true"></div>
+      <div>
+        <div class="brand-title">考研英语阅读技巧手记</div>
+      </div>
     </div>
-
-    <!-- 视图切换与自测控制区 -->
-    <div class="controls-area">
-      <button class="btn btn-active" id="btn-card-mode" onclick="switchViewMode('card')">
-        <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19M7,7H17V9H7V7M7,11H17V13H7V11M7,15H14V17H7V15Z"/></svg>
-        卡片模式
-      </button>
-      <button class="btn" id="btn-flow-mode" onclick="switchViewMode('flow')">
-        <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M3,5H21V7H3V5M3,11H21V13H3V11M3,17H21V19H3V17Z"/></svg>
-        长卷模式 (PDF)
-      </button>
-
-      <div style="width: 1px; height: 20px; background-color: var(--border); margin: 0 4px;"></div>
-
-      <!-- 自测遮罩控制 (Active Recall) -->
-      <button class="btn" id="btn-test-mode" onclick="toggleTestMode()">
-        <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z"/></svg>
-        自测模式
-      </button>
-
-      <!-- 打印按钮 -->
-      <button class="btn" onclick="window.print()">
-        <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M18,3H6V7H18M19,12A1,1 0 1,1 18,11A1,1 0 0,1 19,12M16,19H8V14H16M19,9H5A3,3 0 0,0 2,12V17H6V21H18V17H22V12A3,3 0 0,0 19,9Z"/></svg>
-        打印/PDF
-      </button>
-
-      <!-- 导入本地文件按钮 (用于离线或大文件导入别的手记) -->
-      <button class="btn" onclick="triggerFileSelector()" title="导入本地其它.md文件">
-        <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M9,16V10H5L12,3L19,10H15V16H9M5,20V18H19V20H5Z"/></svg>
-        导入笔记
-      </button>
-
-      <!-- 主题切换 -->
-      <button class="btn icon-btn" onclick="toggleTheme()" title="切换亮/暗色模式">
-        <svg viewBox="0 0 24 24" id="theme-icon">
-          <path d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" />
-        </svg>
-      </button>
+    <div class="toolbar" aria-label="页面工具">
+      <button class="btn active" id="focusModeBtn" type="button">章节精读</button>
+      <button class="btn" id="flowModeBtn" type="button">长卷模式</button>
+      <button class="btn" id="testModeBtn" type="button">自测遮罩</button>
+      <button class="btn" id="printBtn" type="button">打印/PDF</button>
+      <button class="btn" id="importBtn" type="button">导入笔记</button>
+      <button class="btn icon-only" id="themeBtn" type="button" aria-label="切换亮暗色">☾</button>
     </div>
   </header>
 
-  <!-- ==========================================
-       🏛 主体布局 (Main App Container)
-       ========================================== -->
-  <div class="app-container">
-    
-    <!-- 侧边栏列表 - 💡 SSR 式静态预渲染：保证用户首字节直接读取菜单，无需任何 JS 延迟 -->
-    <aside class="sidebar no-print" id="app-sidebar">
-      <div class="sidebar-header">
-        <span>手记目录</span>
-        <span id="card-count-badge" style="font-size:10px; padding:2px 6px; border-radius:8px; background:var(--card-strong);">4 句</span>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="panel-head">
+        <h2 class="panel-title">目录导航</h2>
+        <span class="count-pill" id="chapterCount">0 章</span>
       </div>
-      <ul class="sidebar-list" id="sentence-list">
-        <li class="sidebar-item active" onclick="if (appState.viewMode !== 'card') { switchViewMode('card'); } renderCard(0);">01. Julie Nimmons 案例 (1999-1)</li>
-        <li class="sidebar-item" onclick="if (appState.viewMode !== 'card') { switchViewMode('card'); } renderCard(1);">02. 科学实践依赖性 (1999-5)</li>
-        <li class="sidebar-item" onclick="if (appState.viewMode !== 'card') { switchViewMode('card'); } renderCard(2);">03. 半导体行业危机 (2000-1)</li>
-        <li class="sidebar-item" onclick="if (appState.viewMode !== 'card') { switchViewMode('card'); } renderCard(3);">04. 所谓“科学”神创论 (1996-5)</li>
-      </ul>
+      <div class="search-wrap">
+        <input class="search-input" id="searchInput" type="search" placeholder="搜索技巧、题型、信号词">
+      </div>
+      <ul class="nav-list" id="navList"></ul>
     </aside>
 
-    <!-- 主视口 -->
-    <main class="main-viewport">
-      
-      <!-- ⚡ 卡片模式容器 -->
-      <div class="card-mode-container" id="container-card-mode">
-        
-        <!-- 💡 SSR 静态预渲染卡片 - 彻底移除加载中的“转圈 placeholder”！网页加载完毕直接显示第一张卡片 -->
-        <div class="sentence-card active" id="current-active-card">
-          <!-- 卡片头部 -->
-          <div class="card-header">
-            <h3 class="card-title sans-text">
-              <span class="badge">NO.01</span>
-              01. Julie Nimmons 案例 (1999-1)
-            </h3>
-            <span style="font-size:12px; color:var(--text-muted); font-weight:500;" id="card-index-info">
-              1 / 4
-            </span>
-          </div>
-
-          <div class="card-body">
-            
-            <!-- 区域 1：英文原句区 -->
-            <div class="zone-original">
-              <p class="quote-content serif-text">In May, Julie Nimmons successfully fought a lawsuit involving a football player who was paralyzed in a game while wearing a Schutt helmet.</p>
+    <main class="main">
+      <section class="focus-view" id="focusView">
+        <article class="lesson-card">
+          <div class="lesson-head">
+            <div>
+              <p class="lesson-kicker" id="lessonKicker">Reading Notes</p>
+              <h1 class="lesson-title" id="lessonTitle">加载中</h1>
             </div>
-
-            <!-- 区域 2：双栏区域 -->
-            <div class="zone-middle">
-              
-              <!-- 左侧：句法解码 -->
-              <div class="column-zone column-left">
-                <h4 class="zone-title sans-text">
-                  <svg viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19M7,7H17V9H7V7M7,11H17V13H7V11M7,15H14V17H7V15Z"/></svg>
-                  句法精细解码 (Syntax Analysis)
-                </h4>
-                <div class="markdown-body sans-text">
-                  <table>
-                    <thead>
-                      <tr>
-                        <th style="text-align:left">语法成分</th>
-                        <th style="text-align:left">具体内容</th>
-                        <th style="text-align:left">解析与修饰关系</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td style="text-align:left"><strong>主句主干</strong></td>
-                        <td style="text-align:left">Julie Nimmons successfully fought a lawsuit</td>
-                        <td style="text-align:left">朱莉·尼蒙斯成功打赢了一场诉讼（主谓宾结构）</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align:left"><strong>时间状语</strong></td>
-                        <td style="text-align:left">In May</td>
-                        <td style="text-align:left">在五月份（时间背景）</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align:left"><strong>定语修饰 (修饰 lawsuit)</strong></td>
-                        <td style="text-align:left">involving a football player</td>
-                        <td style="text-align:left">涉及一名橄榄球运动员（现在分词短语作后置定语）</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align:left"><strong>定语从句 (修饰 player)</strong></td>
-                        <td style="text-align:left">who was paralyzed in a game</td>
-                        <td style="text-align:left">他在一场比赛中瘫痪了（who 引导的定语从句）</td>
-                      </tr>
-                      <tr>
-                        <td style="text-align:left"><strong>时间状语从句</strong></td>
-                        <td style="text-align:left">while wearing a Schutt helmet</td>
-                        <td style="text-align:left">当戴着 Schutt 头盔时（while + 分词，省去了主语和系动词）</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              <!-- 右侧：核心词汇 -->
-              <div class="column-zone column-right">
-                <h4 class="zone-title sans-text">
-                  <svg viewBox="0 0 24 24"><path d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3M17,18L12,15.82L7,18V5H17V18Z"/></svg>
-                  核心词汇速记 (Vocabulary)
-                </h4>
-                <div class="markdown-body sans-text">
-                  <ul>
-                    <li><strong>lawsuit</strong> <code>/ˈlɔːsuːt/</code> n. 诉讼，官司</li>
-                    <li><strong>paralyze</strong> <code>/ˈpærəlaɪz/</code> v. 使瘫痪，使麻痹</li>
-                    <li><strong>helmet</strong> <code>/ˈhelmɪt/</code> n. 头盔，安全帽</li>
-                  </ul>
-                </div>
-              </div>
-
-            </div>
-
-            <!-- 区域 3：底部翻译与启示 -->
-            <div class="zone-translation">
-              <h4 class="zone-title sans-text">
-                <svg viewBox="0 0 24 24"><path d="M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z"/></svg>
-                参考译文与做题启示 (Translation & Insights)
-              </h4>
-              <div class="markdown-body sans-text">
-                <ul>
-                  <li><strong>参考译文</strong>：五月份，朱莉·尼蒙斯成功打赢了一场诉讼，该诉讼涉及一名在一场戴着 Schutt 头盔的比赛中瘫痪的橄榄球运动员。</li>
-                  <li><strong>真题启示</strong>：此案用作例证，说明法院态度正在转向支持被告，伤害索赔不再能轻易获得法律支持（正话反说）。</li>
-                </ul>
-              </div>
-            </div>
-
+            <div class="lesson-meta" id="lessonMeta"></div>
           </div>
-
-          <!-- 卡片底部导航控制栏 -->
-          <div class="card-footer no-print">
-            <button class="btn" onclick="prevCard()" disabled id="prev-btn-static">
-              <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/></svg>
-              上一句
-            </button>
-            <span style="font-size:12px; color:var(--text-muted); font-weight:500;">
-              键盘左右键 [← / →] 可快速翻页
-            </span>
-            <button class="btn" onclick="nextCard()" id="next-btn-static">
-              下一句
-              <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-            </button>
+          <div class="section-strip" id="sectionStrip"></div>
+          <div class="lesson-body markdown" id="lessonBody"></div>
+          <div class="lesson-footer">
+            <button class="btn" id="prevBtn" type="button">上一章</button>
+            <div class="progress-text" id="progressText">键盘 ← / → 可切换章节</div>
+            <button class="btn" id="nextBtn" type="button">下一章</button>
           </div>
+        </article>
+      </section>
 
+      <section class="flow-view hidden" id="flowView">
+        <div class="flow-shell">
+          <div class="flow-title">
+            <h1 id="flowTitle">考研英语阅读技巧手记</h1>
+            <p id="flowDesc">按“做题动作 → 信号识别 → 答案判断 → 干扰排除”的顺序整理，适合整篇复盘和打印。</p>
+          </div>
+          <div class="markdown" id="flowContent"></div>
         </div>
-      </div>
-
-      <!-- 📜 长卷模式容器 -->
-      <div class="flow-mode-container" id="container-flow-mode">
-        <div class="flow-content" id="flow-content-target">
-          <!-- JS 动态渲染长卷内容 -->
-        </div>
-      </div>
-
+      </section>
     </main>
+
+    <aside class="reader-rail">
+      <div class="rail-block">
+        <h2 class="rail-title">速查重点</h2>
+        <div class="quick-grid" id="quickList"></div>
+      </div>
+      <div class="rail-block">
+        <h2 class="rail-title">笔记概览</h2>
+        <div class="stat-row">
+          <div class="stat"><b id="statChapters">0</b><span>章节</span></div>
+          <div class="stat"><b id="statSections">0</b><span>小节</span></div>
+        </div>
+      </div>
+    </aside>
   </div>
 
-  <!-- ==========================================
-       🔍 离线/CORS 降级拖拽上传浮层
-       ========================================== -->
-  <div class="file-uploader-container" id="local-file-uploader">
-    <div class="uploader-card" id="drop-zone">
-      <svg class="uploader-icon" viewBox="0 0 24 24">
-        <path d="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,21H18A2,2 0 0,0 20,19V8L14,2M13,9V3.5L18.5,9H13M6,20V4H12V10H18V20H6M15,18V15H17L14,12L11,15H13V18H15Z"/>
-      </svg>
-      <h2 class="uploader-title">本地运行安全保护 (CORS)</h2>
-      <p class="uploader-desc">
-        检测到您正在以本地 `file://` 协议离线打开此页面。由于浏览器的跨域安全策略，无法自动加载同一文件夹下的笔记。
-        <br><br>
-        请在下方<strong>选择</strong>或<strong>直接拖拽拖入</strong>您的 <strong>`长难句手记.md`</strong> 即可瞬间完成离线解析。
-      </p>
-      
-      <button class="btn btn-active file-input-btn">
-        选择长难句手记.md
-        <input type="file" id="file-selector" accept=".md">
-      </button>
+  <div class="uploader" id="uploader">
+    <div class="upload-box" id="dropZone">
+      <h2>导入 Markdown 笔记</h2>
+      <p>选择或拖入新的阅读笔记。页面会按二级标题自动生成目录，并重新渲染为技巧手记。</p>
+      <div class="upload-actions">
+        <button class="btn active" id="chooseFileBtn" type="button">选择 .md 文件</button>
+        <button class="btn" id="closeUploadBtn" type="button">取消</button>
+      </div>
+      <input class="file-input" id="fileInput" type="file" accept=".md,text/markdown,text/plain">
     </div>
   </div>
 
-  <!-- ==========================================
-       💾 内置高分笔记数据库 (用于首屏瞬间 0ms 渲染)
-       ========================================== -->
-  <script type="text/markdown" id="markdown-source"># 考研英语长难句精读手记
-
-本手册为您提供精美的数字化考研英语长难句学习卡片。您可以在此文件底部继续追加新句，格式请严格参考以下示例：
-* 使用 `## 序号. 句子简标题` 开启一个句子的学习卡。
-* 使用 `> 英文长难句` 写下英文原文。
-* 使用 `### 📌 句法拆解` 并使用标准三列表格对长难句进行层级剖析。
-* 使用 `### 📝 核心词汇` 记录重点词汇与音标。
-* 使用 `### 🎯 翻译与启示` 总结参考译文与做题思路。
+  <script type="text/markdown" id="embeddedMarkdown"># 英语阅读笔记（考研）
 
 ---
 
-## 01. Julie Nimmons 案例 (1999-1)
-> In May, Julie Nimmons successfully fought a lawsuit involving a football player who was paralyzed in a game while wearing a Schutt helmet.
+## 一、拿到文章的基本策略
 
-### 📌 句法拆解
-| 语法成分 | 具体内容 | 解析与修饰关系 |
-| :--- | :--- | :--- |
-| **主句主干** | Julie Nimmons successfully fought a lawsuit | 朱莉·尼蒙斯成功打赢了一场诉讼（主谓宾结构） |
-| **时间状语** | In May | 在五月份（时间背景） |
-| **定语修饰 (修饰 lawsuit)** | involving a football player | 涉及一名橄榄球运动员（现在分词短语作后置定语） |
-| **定语从句 (修饰 player)** | who was paralyzed in a game | 他在一场比赛中瘫痪了（who 引导的定语从句） |
-| **时间状语从句** | while wearing a Schutt helmet | 当戴着 Schutt 头盔时（while + 分词，省去了主语和系动词） |
+### 先读题后读文，只看题干
 
-### 📝 核心词汇
-* **lawsuit** `/ˈlɔːsuːt/` n. 诉讼，官司
-* **paralyze** `/ˈpærəlaɪz/` v. 使瘫痪，使麻痹
-* **helmet** `/ˈhelmɪt/` n. 头盔，安全帽
+#### 1. 定位词
+- 大写、人名、地名、时间、年代、数字
+- 名词、形容词
 
-### 🎯 翻译与启示
-* **参考译文**：五月份，朱莉·尼蒙斯成功打赢了一场诉讼，该诉讼涉及一名在一场戴着 Schutt 头盔的比赛中瘫痪的橄榄球运动员。
-* **真题启示**：此案用作例证，说明法院态度正在转向支持被告，伤害索赔不再能轻易获得法律支持（正话反说）。
+#### 2. 串联题干间逻辑，推测文章主题
 
 ---
 
-## 02. 科学实践依赖性 (1999-5)
-> Science, in practice, depends far less on the experiments it prepares than on the preparedness of the minds of the men who watch the experiments.
+## 二、关键信号词
 
-### 📌 句法拆解
-| 语法成分 | 具体内容 | 解析与修饰关系 |
-| :--- | :--- | :--- |
-| **主句主干** | Science depends far less on A than on B | 科学对 A 的依赖远远不如对 B 的依赖（主谓宾结构 + 比较结构） |
-| **插入语** | , in practice, | 在实践中（两个逗号隔开，阅读时可先跳过） |
-| **比较项 A (次要)** | the experiments it prepares | 它所准备的实验（it prepares 作定语修饰 experiments，省略了关系代词 that） |
-| **比较项 B (重要)** | the preparedness of the minds of the men... | 观察实验的人的思维准备度（B 才是作者强调的重点） |
-| **定语从句 (修饰 men)** | who watch the experiments | 观察这些实验的人（who 引导的定语从句） |
+### 转折词 → 后面是重点
 
-### 📝 核心词汇
-* **preparedness** `/prɪˈpeərɪdnəs/` n. 准备状态，准备度
-* **in practice** `/ɪn ˈpræktɪs/` phr. 在实践中，实际上
-* **far less... than...** `/fɑː les... ðæn/` phr. 远远少于...，不如...
+| 信号词 | 说明 |
+|--------|------|
+| but / however | 常规转折 |
+| **now** | 相当于 but/however，**now 之后是重点**，经真题反复验证 |
+| **yielded to / give way to** | "A yielded to B" = A 让位于 B，**B 才是当前状态**；同类：be replaced by、turn into |
 
-### 🎯 翻译与启示
-* **参考译文**：科学在实践中，对它所准备的实验的依赖，远远不如对观察这些实验的人的思维准备度的依赖。
-* **真题启示**：这里包含了一个经典的“比较否定”结构（far less A than B = B 远比 A 重要）。正确答案往往围绕 B（思维的准备度）进行改写，而非 A（实验本身）。
+> 示例（1997真题第52题）：
+> 题干问"美国1980s经济衰退的表现"，原文用 **Now** 引出转折——
+> "By 1987 there was only one American television maker left, Zenith. **Now** there is none..."
+> → now 后才是答案所在句
 
 ---
 
-## 03. 半导体行业危机 (2000-1)
-> The making of semiconductors, which America had invented and which sat at the heart of the new computer age, was going to be the next casualty.
+### 时间信号 → 时间相反，一切相反
 
-### 📌 句法拆解
-| 语法成分 | 具体内容 | 解析与修饰关系 |
-| :--- | :--- | :--- |
-| **主句主干** | The making of semiconductors was going to be the next casualty. | 半导体的制造将成为下一个受害者（主系表结构） |
-| **并列定语从句 1** | , which America had invented | 这一技术是美国发明的（which 引导非限制性定语从句，修饰 semiconductors） |
-| **并列定语从句 2** | and which sat at the heart of the new computer age, | 并且它处于新计算机时代的核心（两个逗号中间的并列非限制性定语从句） |
+**规律：**
+- 题干出现某一时间点 → 答案往往在原文**与之对立的时间**附近
+- 原文常用时间对比构造转折，题目考的是转折后的结论
+- 口诀：**时间变了，结论/状态也跟着反转**
 
-### 📝 核心词汇
-* **semiconductor** `/ˌsemikənˈdʌktə/` n. 半导体
-* **casualty** `/ˈkæʒuəlti/` n. 伤亡人员，受害者，牺牲品
-* **sit at the heart of** phr. 处于...的核心位置
-
-### 🎯 翻译与启示
-* **参考译文**：曾由美国发明并处于新计算机时代核心地位的半导体制造业，将成为下一个受害者。
-* **真题启示**：两逗号之间的两个 which 引导并列定语从句，修饰 semiconductors。读长难句时要学会识别并暂时跳过这种双逗号夹住的解释成分，直奔主干。
+> 示例：题干锁定"1980s（过去）"，原文"By 1987（过去）→ **Now**（现在）"构成对比
+> → 答案在 Now 之后，即现在时态的句子里
 
 ---
 
-## 04. 所谓“科学”神创论 (1996-5)
-> "Scientific" creationism, which is being pushed by some for "equal time" in the classroom, is based on religion, not science.
+### "Few + 大众观点" = 作者真正支持的才是答案
 
-### 📌 句法拆解
-| 语法成分 | 具体内容 | 解析与修饰关系 |
-| :--- | :--- | :--- |
-| **主句主干** | "Scientific" creationism is based on religion, not science. | 所谓的“科学”神创论是基于宗教，而非科学（主系表结构 + 否定并列） |
-| **定语从句** | , which is being pushed by some for "equal time" in the classroom, | 被一些人极力推进以获得在课堂上的“同等时间”（which 引导非限制性定语从句，修饰主语） |
+**规律：**
+- "Few Americans think X" → 大多数人不认为X → **但作者认为X才是对的**
+- 本质是"作者与大众对立"结构：大众盲目自信，少数清醒者（作者）看到真相
+- 不要被"否定"表面迷惑——Few否定的是大众，不是作者观点
 
-### 📝 核心词汇
-* **creationism** `/kriˈeɪʃənɪzəm/` n. 神创论（指认为上帝创造宇宙万物的学说）
-* **equal time** phr. 同等时间，平等对待的时间（在媒体或教学中指给予对立观点的同等陈述时间）
-* **be based on** phr. 基于...，建立在...基础上
+**示例（2000年真题第54题，Text 1）：**
 
-### 🎯 翻译与启示
-* **参考译文**：被一些人极力推崇以获得课堂上“同等时间”的所谓“科学”神创论，其基础是宗教，而非科学。
-* **真题启示**：注意 "Scientific" 上的双引号，这是作者的讽刺/语义转移，暗示这个神创论根本不科学。选项中如果去掉了双引号当作正常科学论述，则是典型的干扰项。
+**原文背景：** 文章写于1995年，讲的是美国经济在经历1980s的衰退后，1990s强势复苏，日本反而陷入困境。大量美国专家、学者开始高调赞美本国的工业结构、企业管理、生产效率——作者认为这是一种"盲目自信"，真正的复苏原因（经济周期的自然转折）反而被大众忽视。
+- 题干：作者认为1990s美国经济复苏归因于什么？
+- 原文：*Few Americans attribute this solely to such obvious causes as a devalued dollar or **the turning of the business cycle.***
+- → 大众不承认经济周期是原因 → 作者恰恰认为这才是真正原因
+- → 答案：**A（turning of the business cycle）**
+
+**文章整体逻辑：**
+- Self-doubt has **yielded to** blind pride（自我怀疑让位于盲目自信）
+- 后文大量举例：各路专家、学者盛赞美国工业/管理 → 这些都是"盲目自信"的体现
+- 作者立场：这些人沉浸在自我感觉良好中，真正的原因（经济周期）反而被忽视
+
+---
+
+## 三、正确答案的三个特征
+
+### 1. 同义改写（含正话反说）
+- 正确答案不会照抄原文，而是用**同义词/近义词**替换关键词
+- 看到选项和原文用词完全一样反而要警惕
+
+**正话反说** = 同义改写的特殊形式：原文用正面/迂回表达，答案用负面/直接表达（或反之），意思相同但角度相反
+
+> 示例1（99-1 Q53，Text 1）：
+> 原文（4段）：*Now the tide appears to be turning... some courts are beginning to **side with defendants***（法院开始站在被告一边）
+> → 正话：法院支持被告
+> → 反说：**[A] some injury claims were no longer supported by law** ✓（部分伤害索赔不再受法律支持）
+> → 两种表达角度相反，意思完全相同
+
+> 示例2（99-1 Q55）：
+> 原文（1段）：*There are about 105 males born for every 100 females, but this ratio drops to near balance at the age of maturity, and among 70-year-olds there are **twice as many women as men***（男性大量死亡）
+> → 正话：女性存活数量是男性两倍
+> → 反说：**[C] A lower survival rate** ✓（男性存活率更低）
+
+> 示例3（99-5 Q67）：
+> 原文（1段）：*Science, in practice, depends **far less** on the experiments it prepares **than on** the preparedness of the minds of the men who watch the experiments.*
+> → 原文说：科学实践**更少**依赖实验本身，**更多**依赖观察实验的人的思维准备度
+> → 正话（原文角度）：实验不如思维重要
+> → 反说（答案角度）：**[A] Inquiring minds are more important than scientific experiments** ✓
+> → 两者意思相同，只是原文用"less...than"否定式，答案用"more important than"肯定式
+
+### 2. 与中心思想密切相关
+- 正确答案往往指向文章的核心观点，而不是细节
+- 选项如果只是复述某个孤立细节，优先级低
+
+### 3. 语气缓和：some / may / partly ⭐（出现概率约90%）
+- 正确答案倾向于用**不确定、部分、可能**等缓和词
+- 与干扰项第6条"绝对化用词"完全相反
+- 见到含 some、may、partly、in some cases 的选项，优先考虑
+
+---
+
+## 四、干扰选项的七种特征
+
+### 1. 正反混淆
+- 原文说"effortless（轻松）"，选项改成"painstaking（费力）"——意思完全相反
+- 识别方法：找到原文对应词，看选项是否把正面改成负面或反之
+
+### 2. 概念偷换
+- 原文说"比任何竞争对手大八倍（than any competitor）"，选项改成"比以前大八倍（than before）"——比较对象被偷换
+- 数字/倍数题尤其要核查**比较基准**是什么
+
+### 3. 答非所问
+- 选项内容原文有，但回答的不是题目问的那个问题
+- 定位对了，但没有看清题干问的是什么
+
+### 4. 不同内容嫁接
+- 把原文两个不相关的信息拼在一起，制造一个"看起来对"的选项
+
+### 5. 非最佳答案
+- 选项A、B都能在原文找到支撑，但B更直接、更准确
+- A只是"没有B好"，不是完全错误，但考研选最优
+- 示例：
+  - [D] A long history of success may pave the way for further development.
+  - **[B] Intense competition may contribute to economic progress** ← 更优，直接对应原文核心
+
+### 6. 绝对化用词
+- 选项出现 only、must、exclusively、never、all 等极端词 → 高度警惕
+- 原文一般不会说得这么绝对，选项加了绝对词往往就错了
+
+### 7. 就事论事（常见于例证题）
+- 例子中出现的具体细节被直接放进选项 → 干扰项
+- 正确答案应该是例子背后的**观点**，而不是例子本身的内容
+
+---
+
+## 五、专题：标点符号的运用
+
+### 逗号（,）
+**规律：** 两个逗号之间，或一个逗号之后，是补充说明成分，属于**非主干**
+
+- 读句子找主干时，逗号夹住的部分可以先跳过
+- 示例1（00-1 第2段）：
+  - 原文：*...the making of semiconductors，which America had invented and which sat at the heart of the new computer age，was going to be the next casualty.*
+  - → 两逗号之间是定语从句修饰语，主干是"the making of semiconductors was going to be the next casualty"
+- 示例2（96-5 第1段）：
+  - 原文：*"Scientific" creationism，which is being pushed by some for "equal time"...，is based on religion, not science.*
+  - → 主干是"Scientific creationism is based on religion, not science"
+
+---
+
+### 冒号（:）
+**规律：** 冒号前后，一般是从**抽象到具体**，冒号后面的内容解释前面的内容
+
+- 定位答案时，冒号后的具体内容往往才是关键
+- 示例1（97-3 第60题）：
+  - 题干问"pervasive"是什么意思
+  - 原文：*...the use of substances (drugs) is pervasive : an aspirin to quiet a headache, some wine to be sociable, coffee to get going in the morning...*
+  - → 冒号后列举大量具体例子 → pervasive = widespread（答案A）
+- 示例2（07-4 第36题）：
+  - 原文：*...a new problem threatens...the executive suite : data insecurity.*
+  - → 冒号后"data insecurity"是"新威胁"的具体所指 → 谚语用来引出D（the severity of data leakage）
+
+---
+
+### 分号（;）
+**规律：** 分号前后为**并列关系**，两句地位平等、意思相近或互为补充
+
+- 读不懂分号前的句子，看分号后——意思是一样的
+- 示例1（03-4 第2段）：
+  - *Death is normal ; we are genetically programmed to disintegrate and perish, even under ideal conditions.*
+  - → 两句并列，都在说"死亡是自然的"
+- 示例2（97-5 第3段，第69题）：
+  - *This is no flash in the pan ; over the past couple of years, inflation has been consistently lower than expected.*
+  - → 分号后解释了"no flash in the pan"的含义 = 低通胀持续了很长时间 → 答案A（the low inflation rate will last for some time）
+
+---
+
+### 引号（" "）
+**规律：** 两种用法
+1. **引用**：直接引用他人原话
+2. **反语或语义转移**：作者加引号表示**不认同**该词的通常含义，带有讽刺或特殊含义
+
+- 示例（96-5 第1段，第67题）：
+  - 原文：*"Scientific" creationism is based on religion, not science.*
+  - → "scientific"打引号 = 作者讽刺这个"科学"根本不科学，是语义转移
+  - → 答案D（the deceptive theory about the origin of the universe）
+
+**反面提醒：原文带引号，选项去掉引号直接用 = 干扰项**
+- 引号是作者态度的标记，去掉引号等于去掉了作者的讽刺/保留态度，含义已经改变
+- 示例（97-1 第53题）：
+  - 原文：undergo a **"cooling off"** period of seven days（带引号，暗示这个说法是程序术语或有特定含义）
+  - 选项D：undergo a cooling off period of seven days → 去掉引号直接用，含义变成字面意思，排除
+  - 口诀：**原文有引号，选项去了引号 → 不选**
+
+---
+
+## 六、题型专题
+
+> 本章持续补充，每种题型单独列一节。
+
+### 例证题
+
+**标志词：** example / case / illustrate / demonstrate / to show / **to + 动词原形** ⭐
+
+> **"to ___" 特别重要**：凡是看到 "to illustrate / to demonstrate / to show / to prove / to explain..." 这类不定式，后面紧跟的就是**例子的目的**，目的句本身就是观点所在。
+
+**核心规律：**
+1. 例子本身不重要，重要的是例子**所支持的观点**
+2. 观点一般在例子**前面**，有时也在例子后面
+3. 答案要找观点句，不要纠缠例子细节
+
+**干扰项特征：就事论事——谈例子本身，不谈例子支持的观点**（见第四章第7条）
+
+> **示例1（1999真题 Text 1，第53题）**
+>
+> **文章背景（1段）：** 自1980年代起，陪审团开始判定公司对消费者的意外事故承担责任，于是公司纷纷撰写越来越长的警告标签来规避诉讼风险。
+>
+> **2段原文：** *Feeling threatened, companies responded by writing ever-longer warning labels...*
+> - **"Feeling threatened"** = 分词短语作原因状语，意为**"因为感到受到威胁"**
+> - 翻译：因为感到受到（诉讼）威胁，公司的应对方式是撰写越来越长的警告标签
+>
+> **4段原文：** ***Now** the tide appears to be turning. As personal injury claims continue as before, some courts are beginning to side with defendants... In May, Julie Nimmons... successfully fought a lawsuit involving a football player who was paralyzed in a game while wearing a **Schutt helmet**.*
+> - **Now** = 转折信号，后面是重点：法院开始偏向被告，诉讼形势正在逆转
+> - Schutt 头盔案例 = **例子**，用来支撑"tide is turning"这个观点
+>
+> **题目：** The case of Schutt helmet demonstrated that
+> - [A] some injury claims were no longer supported by law ✓ **（正确 · 正话反说）**
+> - [B] helmets were not designed to prevent injuries ✗ **← 就事论事干扰项**
+> - [C] product labels would eventually be discarded ✗
+> - [D] some sports games might lose popularity with athletes ✗
+>
+> **解析：**
+> - **B 为什么排除**：题干问的是"Schutt 头盔这个案例说明了什么"，B 说的是"头盔本身不是用来防止受伤的"——这是在谈**例子中的物品（头盔）本身**，属于就事论事。案例的意义在于它代表了法律风向的转变，而不是头盔的设计用途。
+> - **A 为什么正确**：原文说法院开始站在被告一边（正话），A 说"部分伤害索赔不再受法律支持"（反说）——角度相反，含义相同，是典型的**正话反说式同义改写**。
+
+---
+
+> **示例2（2018真题 Text 2，第39题）**
+>
+> 原文（08-4段）：*"...the South could not afford to part with its slaves. Owning slaves was 'like having a large bank account'... The southern states would not have signed the Constitution without protections for the 'peculiar institution,' including a clause that counted a slave as three fifths of a man for purposes of congressional representation."*
+>
+> 题目：Which of the following is true according to the text?
+> - [A] Some Founding Fathers benefit politically from slavery. ✓ **（正确）**
+> - [B] Slaves in the old days did not have the right to vote. ✗
+> - [C] Slave owners usually had large **savings** accounts. ✗ **← 就事论事干扰项**
+> - [D] Slavery was regarded as a peculiar institution. ✗
+>
+> **解析：**
+> - C 错误：原文"like having a large bank account"是**比喻**（例子），意思是拥有奴隶像拥有大额存款一样（是财富），并不是说奴隶主真的有大额储蓄账户。选C就是犯了"就事论事"的错误——把比喻当事实。
+> - A 正确：原文提到奴隶按3/5的人头算国会代表席位 → 南方州借此多得议席 → 国父们从奴隶制中获得了政治利益，是例子背后的**观点**。
+
+---
+
+## 七、句子结构：分词短语作状语
+
+### 分词短语表原因
+
+**规律：** 句首的现在分词短语（V-ing ...）常作**原因状语**，相当于 "Because / Since ..."
+
+| 原文形式 | 翻译理解 |
+|----------|----------|
+| **Feeling threatened**, companies responded by... | **因为感到受到威胁**，公司的应对方式是…… |
+| Seeing the results, she changed her mind. | 因为看到了结果，她改变了主意 |
+
+**考试意义：**
+- 读长句时，句首 V-ing 短语 = 原因/条件/时间背景，先理解它的逻辑关系，再看主句
+- 常考点：分词短语的逻辑主语必须与主句主语一致（否则是悬垂分词，但真题中一般不会出这种错误）
+
+---
+
+### 长难句分析示例
+
+**原句（99-5 Text 5，第1段）：**
+
+> *Science, **in practice**, depends **far less** on the experiments it prepares **than on** the preparedness of the minds of the men **who watch the experiments**.*
+
+**句子拆解：**
+
+| 成分 | 原文片段 | 说明 |
+|------|----------|------|
+| 主语 | Science | 科学 |
+| 插入语 | , in practice, | 两个逗号夹住，可先跳过；意为"在实践中" |
+| 谓语 | depends | 依赖 |
+| 比较结构 | far less on A than on B | **A 远不如 B 重要**；far 加强语气 |
+| A（次要） | the experiments it prepares | 实验本身；"it prepares" 是定语从句修饰 experiments（省略了 that） |
+| B（重要） | the preparedness of the minds of the men who watch the experiments | 观察实验的人的思维准备度；"who watch the experiments" 是定语从句修饰 men |
+
+**翻译：** 科学在实践中，对它所准备的实验的依赖，远远不如对观察这些实验的人的思维准备度的依赖。
+
+**关键点：**
+- 插入语 "in practice" 用两个逗号隔开，读句时直接跳过，先抓主干
+- "far less...than..." 是**比较否定结构**：A 不如 B → 等价于 B 比 A 更重要
+- 三层 of 连接：preparedness **of** the minds **of** the men **who**... → 从外到内：准备度 → 思维 → 人 → 观察实验的人
 </script>
 
-  <!-- ==========================================
-       🧠 核心应用交互引擎 (JS)
-       ========================================== -->
   <script>
-    // 全局数据状态
-    let appState = {
-      sentences: [],          // 解析出的结构化句子列表
-      currentIndex: 0,        // 当前卡片索引
-      currentTheme: 'light',  // 亮/暗主题
-      viewMode: 'card',       // 视图模式: 'card' | 'flow'
-      isTestMode: false       // 自测模糊模式状态
-    };
+    (function () {
+      const state = {
+        title: "考研英语阅读技巧手记",
+        chapters: [],
+        current: 0,
+        mode: "focus",
+        test: false,
+        query: ""
+      };
 
-    // 页面初始化
-    function initApp() {
-      // 1. 初始化系统自动追踪及暗黑模式设置
-      initTheme();
+      const $ = (id) => document.getElementById(id);
 
-      // 2. 注册本地文件选择器事件
-      setupFileUploader();
+      const els = {
+        navList: $("navList"),
+        chapterCount: $("chapterCount"),
+        searchInput: $("searchInput"),
+        focusView: $("focusView"),
+        flowView: $("flowView"),
+        focusModeBtn: $("focusModeBtn"),
+        flowModeBtn: $("flowModeBtn"),
+        testModeBtn: $("testModeBtn"),
+        printBtn: $("printBtn"),
+        importBtn: $("importBtn"),
+        themeBtn: $("themeBtn"),
+        lessonKicker: $("lessonKicker"),
+        lessonTitle: $("lessonTitle"),
+        lessonMeta: $("lessonMeta"),
+        sectionStrip: $("sectionStrip"),
+        lessonBody: $("lessonBody"),
+        prevBtn: $("prevBtn"),
+        nextBtn: $("nextBtn"),
+        progressText: $("progressText"),
+        flowTitle: $("flowTitle"),
+        flowContent: $("flowContent"),
+        quickList: $("quickList"),
+        statChapters: $("statChapters"),
+        statSections: $("statSections"),
+        uploader: $("uploader"),
+        dropZone: $("dropZone"),
+        chooseFileBtn: $("chooseFileBtn"),
+        closeUploadBtn: $("closeUploadBtn"),
+        fileInput: $("fileInput")
+      };
 
-      // 3. 立即从本地嵌入的 Markdown 源中进行首屏极速加载
-      renderFromEmbeddedSource();
-
-      // 4. 后台静默拉取同级目录下的长难句手记.md (热更新与数据同步)
-      loadDefaultMarkdown();
-
-      // 5. 绑定移动端触摸事件 (事件委托)
-      setupMobileTouchEvents();
-    }
-
-    if (document.readyState === "loading") {
-      document.addEventListener("DOMContentLoaded", initApp);
-    } else {
-      initApp();
-    }
-
-    // 从 HTML 内嵌的 markdown 源码进行极速解析
-    function renderFromEmbeddedSource() {
-      const sourceEl = document.getElementById("markdown-source");
-      if (sourceEl) {
-        // 解析数据填充 appState（含侧边栏更新），然后用正确数据渲染第一张卡片
-        parseMarkdownData(sourceEl.textContent);
-        if (appState.sentences.length > 0) {
-          renderCard(0);
-        }
-      }
-    }
-
-    // 纯解析 markdown 数据，不重写 DOM 的首张卡片（为 SSR 首屏加速服务）
-    function parseMarkdownData(mdText) {
-      if (!mdText) return;
-
-      const lines = mdText.split(/\r?\n/);
-      let sentences = [];
-      let docTitle = "考研英语长难句精读手记";
-      let docDesc = "";
-
-      // 提取标题
-      for(let i=0; i<lines.length; i++) {
-        const line = lines[i].trim();
-        if (line.startsWith('# ')) {
-          docTitle = line.substring(2);
-          break;
-        }
+      function escapeHTML(value) {
+        return String(value || "")
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#39;");
       }
 
-      // 将文件通过 ## 进行切分 (兼容 Windows CRLF 换行)
-      const blocks = mdText.split(/\r?\n##\s+/);
-      
-      // 第一个块通常是标题和前言描述，抓取第一块中 H1 下面的普通段落
-      if (blocks.length > 0) {
-        const firstBlock = blocks[0];
-        const matchDesc = firstBlock.match(/\r?\n([^#\-\*\>\s][^\r\n]+)/);
-        if (matchDesc) docDesc = matchDesc[1];
+      function slugify(text, index) {
+        return "chapter-" + index + "-" + String(text).replace(/[^\w\u4e00-\u9fa5]+/g, "-").replace(/^-|-$/g, "");
       }
 
-      for (let k = 1; k < blocks.length; k++) {
-        const block = blocks[k];
-        const blockLines = block.split(/\r?\n/);
-        const title = (blockLines[0] || "").trim() || "未命名句子";
-        
-        let originalText = "";
-        const quoteBlockMatches = block.match(/>\s*([^\r\n]+(\r?\n>[^\r\n]+)*)/);
-        if (quoteBlockMatches) {
-          originalText = quoteBlockMatches[1].replace(/>/g, '').replace(/\r?\n/g, ' ').trim();
-        } else {
-          originalText = "（未检测到英文原句，请检查 Markdown 格式）";
+      function cleanTitle(text) {
+        return String(text || "")
+          .replace(/^#+\s*/, "")
+          .replace(/^[一二三四五六七八九十]+[、.．]\s*/, "")
+          .trim();
+      }
+
+      function stripPhonetics(text) {
+        return String(text || "")
+          .replace(/\s*`\/[^`\n]+\/`\s*/g, " ")
+          .replace(/\s*\/[A-Za-zɪʊəɔæɑɛɜːˈˌθðʃʒŋɡɒʌeɚ\-\s]+\/\s*/g, " ")
+          .replace(/[ \t]{2,}/g, " ");
+      }
+
+      function parseMarkdownDocument(md) {
+        const normalized = stripPhonetics(md || "").replace(/\r\n?/g, "\n");
+        const titleMatch = normalized.match(/^#\s+(.+)$/m);
+        const title = titleMatch ? titleMatch[1].trim() : "考研英语阅读技巧手记";
+        const chapterMatches = [...normalized.matchAll(/^##\s+(.+)$/gm)];
+
+        if (!chapterMatches.length) {
+          return {
+            title,
+            chapters: [{
+              id: "chapter-0",
+              title,
+              rawTitle: title,
+              body: normalized.replace(/^#\s+.+$/m, "").trim(),
+              sections: []
+            }]
+          };
         }
 
-        let syntaxMarkdown = "";
-        let vocabMarkdown = "";
-        let translationMarkdown = "";
-        
-        // 兼容 Windows CRLF 换行进行 H3 版块拆分
-        const subSections = block.split(/\r?\n###\s+/);
-        if (subSections.length <= 1) {
-          // Completely malformed block or has no ### headers
-          // Let's extract everything after the title line and put it in syntaxMarkdown
-          const newlineIndex = block.indexOf('\n');
-          const remainingContent = newlineIndex !== -1 ? block.substring(newlineIndex + 1).trim() : "";
-          if (remainingContent) {
-            syntaxMarkdown = "*⚠️ 该区块未检测到标准 ### 子小标题，已作为原始 Markdown 载入：*\n\n" + remainingContent;
-          } else {
-            syntaxMarkdown = "*⚠️ 该区块无内容信息*";
-          }
-        } else {
-          for(let s = 1; s < subSections.length; s++) {
-            const subSec = subSections[s];
-            const secLines = subSec.split(/\r?\n/);
-            const secTitleLine = (secLines[0] || "").trim();
-            
-            const newlineIndex = subSec.indexOf('\n');
-            const secContent = newlineIndex !== -1 ? subSec.substring(newlineIndex + 1).trim() : "";
-            
-            if (secTitleLine.includes("句法") || secTitleLine.includes("拆解") || secTitleLine.includes("结构") || secTitleLine.includes("syntax")) {
-              syntaxMarkdown = secContent;
-            } else if (secTitleLine.includes("词汇") || secTitleLine.includes("单词") || secTitleLine.includes("vocab") || secTitleLine.includes("word")) {
-              vocabMarkdown = secContent;
-            } else if (secTitleLine.includes("翻译") || secTitleLine.includes("译文") || secTitleLine.includes("启示") || secTitleLine.includes("心得")) {
-              translationMarkdown = secContent;
-            } else {
-              if (translationMarkdown) {
-                translationMarkdown += `\n\n### ${secTitleLine}\n${secContent}`;
-              } else {
-                translationMarkdown = `### ${secTitleLine}\n${secContent}`;
-              }
-            }
-          }
-        }
+        const chapters = chapterMatches.map((match, index) => {
+          const start = match.index + match[0].length;
+          const end = index + 1 < chapterMatches.length ? chapterMatches[index + 1].index : normalized.length;
+          const body = normalized.slice(start, end).trim().replace(/^-{3,}\s*/gm, "").trim();
+          const rawTitle = match[1].trim();
+          const sections = [...body.matchAll(/^###\s+(.+)$/gm)].map((sec, secIndex) => ({
+            id: `chapter-${index}-section-${secIndex}`,
+            title: cleanTitle(sec[1])
+          }));
 
-        sentences.push({
-          index: k - 1,
-          title: title,
-          original: originalText,
-          syntaxHTML: safeMarkedParse(syntaxMarkdown),
-          vocabHTML: safeMarkedParse(vocabMarkdown),
-          translationHTML: safeMarkedParse(translationMarkdown),
-          rawMarkdown: block
+          return {
+            id: slugify(rawTitle, index),
+            title: cleanTitle(rawTitle),
+            rawTitle,
+            body,
+            sections
+          };
         });
+
+        return { title, chapters };
       }
 
-      appState.sentences = sentences;
-      document.title = `${docTitle} - 暖色宣纸风`;
-
-      // 渲染长卷模式内容
-      renderFlowMode(docTitle, docDesc);
-      
-      // 同步更新侧边栏目录与角标（首屏时即刻生效）
-      const badge = document.getElementById("card-count-badge");
-      if (badge) badge.textContent = `${sentences.length} 句`;
-      renderSidebar();
-    }
-
-    // 安全解析 Markdown (防止 CDN 挂掉或离线时脚本崩溃)
-    function safeMarkedParse(text) {
-      if (typeof marked !== 'undefined' && marked.parse) {
-        try {
-          return marked.parse(text);
-        } catch (e) {
-          console.warn("Marked 解析失败，启用离线解析备用:", e);
-        }
-      }
-      return simpleMarkdownToHTML(text);
-    }
-
-    // 极简离线 Markdown 渲染器 (支持表格、加粗、代码、列表，保证 100% 离线可用且不崩溃)
-    function simpleMarkdownToHTML(text) {
-      if (!text) return '';
-      
-      const lines = text.split(/\r?\n/);
-      let html = '';
-      let inTable = false;
-      let tableHeaderParsed = false;
-      let listStack = []; // stores { type: 'ul'|'ol', indent: number }
-
-      function closeLists(targetIndent) {
-        while (listStack.length > 0 && listStack[listStack.length - 1].indent > targetIndent) {
-          const list = listStack.pop();
-          html += `</${list.type}>`;
-        }
+      function parseInline(text) {
+        let value = escapeHTML(text);
+        value = value.replace(/`([^`]+)`/g, "<code>$1</code>");
+        value = value.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+        value = value.replace(/\*([^*]+)\*/g, "<em>$1</em>");
+        value = value.replace(/(✓|正确)/g, "<strong>$1</strong>");
+        return value;
       }
 
-      function closeAllLists() {
-        closeLists(-1);
-      }
+      function renderMarkdown(md, options = {}) {
+        const lines = String(md || "").split("\n");
+        let html = "";
+        let inTable = false;
+        let tableHeaderNext = false;
+        let listType = "";
+        let quoteBuffer = [];
 
-      function closeTable() {
-        if (inTable) {
-          inTable = false;
-          tableHeaderParsed = false;
-          html += '</table>';
-        }
-      }
-
-      for (let i = 0; i < lines.length; i++) {
-        const rawLine = lines[i];
-        const trimmedLine = rawLine.trim();
-
-        if (trimmedLine === '') {
-          closeTable();
-          closeAllLists();
-          continue;
+        function closeList() {
+          if (listType) {
+            html += `</${listType}>`;
+            listType = "";
+          }
         }
 
-        // 1. Table support
-        if (trimmedLine.startsWith('|')) {
-          closeAllLists();
-          if (trimmedLine.includes('---')) {
-            // Separator line
-            if (!inTable) {
-              inTable = true;
-              html += '<table>';
-            }
+        function closeTable() {
+          if (inTable) {
+            html += "</tbody></table>";
+            inTable = false;
+            tableHeaderNext = false;
+          }
+        }
+
+        function flushQuote() {
+          if (quoteBuffer.length) {
+            html += `<blockquote>${quoteBuffer.map((line) => `<p>${parseInline(line)}</p>`).join("")}</blockquote>`;
+            quoteBuffer = [];
+          }
+        }
+
+        for (let i = 0; i < lines.length; i++) {
+          const raw = lines[i];
+          const line = raw.trim();
+
+          if (!line || /^-{3,}$/.test(line)) {
+            flushQuote();
+            closeList();
+            closeTable();
             continue;
           }
-          if (!inTable) {
-            inTable = true;
-            html += '<table>';
+
+          if (line.startsWith(">")) {
+            closeList();
+            closeTable();
+            quoteBuffer.push(line.replace(/^>\s?/, ""));
+            continue;
           }
-          
-          const cells = trimmedLine.split('|').slice(1, -1);
-          html += '<tr>';
-          const isHeader = !tableHeaderParsed && (i + 1 < lines.length && lines[i + 1].trim().startsWith('|') && lines[i + 1].includes('---'));
-          const cellTag = isHeader ? 'th' : 'td';
-          if (isHeader) {
-            tableHeaderParsed = true;
-          }
-          for (let cell of cells) {
-            html += `<${cellTag}>${parseInlineMarkdown(cell.trim())}</${cellTag}>`;
-          }
-          html += '</tr>';
-          continue;
-        }
 
-        // If not a table line, close table
-        closeTable();
+          flushQuote();
 
-        // 2. Blockquote support
-        if (trimmedLine.startsWith('>')) {
-          closeAllLists();
-          const quoteContent = trimmedLine.replace(/^>\s*/, '');
-          html += `<blockquote><p>${parseInlineMarkdown(quoteContent)}</p></blockquote>`;
-          continue;
-        }
-
-        // 3. Lists support (unordered and ordered)
-        const indentMatch = rawLine.match(/^(\s*)/);
-        const indent = indentMatch ? indentMatch[1].length : 0;
-        
-        const ulMatch = trimmedLine.match(/^([\*\-\+])\s+(.*)$/);
-        const olMatch = trimmedLine.match(/^(\d+)\.\s+(.*)$/);
-
-        if (ulMatch || olMatch) {
-          const listType = ulMatch ? 'ul' : 'ol';
-          const content = ulMatch ? ulMatch[2] : olMatch[2];
-
-          if (listStack.length === 0) {
-            listStack.push({ type: listType, indent: indent });
-            html += `<${listType}>`;
-          } else {
-            const currentList = listStack[listStack.length - 1];
-            if (indent > currentList.indent) {
-              listStack.push({ type: listType, indent: indent });
-              html += `<${listType}>`;
-            } else if (indent < currentList.indent) {
-              closeLists(indent);
-              if (listStack.length > 0 && listStack[listStack.length - 1].type !== listType) {
-                const prev = listStack.pop();
-                html += `</${prev.type}><${listType}>`;
-                listStack.push({ type: listType, indent: indent });
-              }
-            } else {
-              if (currentList.type !== listType) {
-                listStack.pop();
-                html += `</${currentList.type}><${listType}>`;
-                listStack.push({ type: listType, indent: indent });
-              }
+          if (line.startsWith("|")) {
+            closeList();
+            const cells = line.split("|").slice(1, -1).map((cell) => cell.trim());
+            const separator = cells.every((cell) => /^:?-{3,}:?$/.test(cell));
+            if (separator) {
+              tableHeaderNext = false;
+              continue;
             }
+            if (!inTable) {
+              inTable = true;
+              tableHeaderNext = true;
+              html += "<table><tbody>";
+            }
+            const tag = tableHeaderNext ? "th" : "td";
+            html += `<tr>${cells.map((cell) => `<${tag}>${parseInline(cell)}</${tag}>`).join("")}</tr>`;
+            tableHeaderNext = false;
+            continue;
           }
 
-          html += `<li>${parseInlineMarkdown(content)}</li>`;
-          continue;
+          closeTable();
+
+          const heading = line.match(/^(#{1,6})\s+(.+)$/);
+          if (heading) {
+            closeList();
+            const level = heading[1].length;
+            const tag = level <= 2 ? "h2" : level === 3 ? "h3" : "h4";
+            const title = cleanTitle(heading[2]);
+            const id = options.headingIds ? ` id="${escapeHTML(slugify(title, options.headingSeed || 0) + "-" + i)}"` : "";
+            html += `<${tag}${id}>${parseInline(title)}</${tag}>`;
+            continue;
+          }
+
+          const unordered = line.match(/^[-*+]\s+(.+)$/);
+          const ordered = line.match(/^\d+\.\s+(.+)$/);
+          if (unordered || ordered) {
+            const desiredType = unordered ? "ul" : "ol";
+            if (listType && listType !== desiredType) closeList();
+            if (!listType) {
+              listType = desiredType;
+              html += `<${listType}>`;
+            }
+            html += `<li>${parseInline((unordered || ordered)[1])}</li>`;
+            continue;
+          }
+
+          closeList();
+          html += `<p>${parseInline(line)}</p>`;
         }
 
-        // Not a list item, close lists
-        closeAllLists();
-
-        // 4. Headers support
-        const headerMatch = trimmedLine.match(/^(#{1,6})\s+(.*)$/);
-        if (headerMatch) {
-          const level = headerMatch[1].length;
-          const content = headerMatch[2];
-          const hTag = level === 1 ? 'h2' : level === 2 ? 'h3' : level === 3 ? 'h4' : 'h5';
-          const hClass = level === 3 ? 'class="zone-title sans-text"' : '';
-          html += `<${hTag} ${hClass}>${parseInlineMarkdown(content)}</${hTag}>`;
-          continue;
-        }
-
-        // 5. Paragraph support
-        html += `<p>${parseInlineMarkdown(trimmedLine)}</p>`;
+        flushQuote();
+        closeList();
+        closeTable();
+        return html;
       }
 
-      closeTable();
-      closeAllLists();
-      return html;
-    }
-
-    // 解析行内 Markdown (加粗、斜体、行内代码)
-    function parseInlineMarkdown(text) {
-      if (!text) return '';
-      return text
-        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-        .replace(/\*(.*?)\*/g, '<em>$1</em>')
-        .replace(/`(.*?)`/g, '<code>$1</code>');
-    }
-
-    // 主解析并重绘接口
-    function parseAndRenderApp(mdText) {
-      parseMarkdownData(mdText);
-      if (appState.sentences.length === 0) {
-        showEmptyState();
-        const sidebarList = document.getElementById("sentence-list");
-        if (sidebarList) sidebarList.innerHTML = "";
-        const badge = document.getElementById("card-count-badge");
-        if (badge) badge.textContent = "0 句";
-      } else {
-        renderSidebar();
-        renderCard(appState.currentIndex);
-      }
-    }
-
-    // 后台静默拉取
-    async function loadDefaultMarkdown() {
-      try {
-        const response = await fetch('长难句手记.md');
-        if (!response.ok) return;
-        const text = await response.text();
-        
-        const sourceEl = document.getElementById("markdown-source");
-        if (sourceEl && sourceEl.textContent.trim() !== text.trim()) {
-          parseAndRenderApp(text);
-          sourceEl.textContent = text;
-          console.log("检测到最新的长难句手记.md有内容追加，已自动完成热更新同步。");
-        }
-      } catch (error) {
-        console.log("本地离线协议运行：使用内嵌高分数据库。");
-      }
-    }
-
-    // 触发隐藏的文件选择器
-    function triggerFileSelector() {
-      document.getElementById("file-selector").click();
-    }
-
-    // 拖拽与文件选择器逻辑
-    function setupFileUploader() {
-      if (window.fileUploaderSetupDone) return;
-      
-      const dropZone = document.getElementById("drop-zone");
-      const fileSelector = document.getElementById("file-selector");
-      const uploaderContainer = document.getElementById("local-file-uploader");
-      if (!dropZone || !fileSelector) return;
-
-      window.fileUploaderSetupDone = true;
-
-      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, preventDefaults, false);
-      });
-
-      function preventDefaults(e) {
-        e.preventDefault();
-        e.stopPropagation();
+      function setTheme(theme) {
+        document.documentElement.setAttribute("data-theme", theme);
+        sessionStorage.setItem("reading-theme", theme);
+        els.themeBtn.textContent = theme === "dark" ? "☀" : "☾";
       }
 
-      ['dragenter', 'dragover'].forEach(eventName => {
-        dropZone.addEventListener(eventName, () => dropZone.classList.add('dragover'), false);
-      });
-
-      ['dragleave', 'drop'].forEach(eventName => {
-        dropZone.addEventListener(eventName, () => dropZone.classList.remove('dragover'), false);
-      });
-
-      dropZone.addEventListener('drop', (e) => {
-        const dt = e.dataTransfer;
-        const files = dt.files;
-        if (files.length > 0) {
-          handleFile(files[0]);
+      function initTheme() {
+        const saved = sessionStorage.getItem("reading-theme");
+        if (saved) {
+          setTheme(saved);
+          return;
         }
-      });
+        const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+        const hour = new Date().getHours();
+        setTheme(prefersDark || hour >= 18 || hour < 6 ? "dark" : "light");
+      }
 
-      fileSelector.addEventListener('change', (e) => {
-        const files = e.target.files;
-        if (files.length > 0) {
-          handleFile(files[0]);
+      function chapterMatches(chapter, query) {
+        if (!query) return true;
+        const needle = query.toLowerCase();
+        return (chapter.title + "\n" + chapter.body).toLowerCase().includes(needle);
+      }
+
+      function renderNav() {
+        const visible = state.chapters
+          .map((chapter, index) => ({ chapter, index }))
+          .filter(({ chapter }) => chapterMatches(chapter, state.query));
+
+        els.navList.innerHTML = visible.map(({ chapter, index }) => `
+          <li>
+            <button class="nav-item ${index === state.current ? "active" : ""}" type="button" data-index="${index}">
+              <span class="nav-num">${String(index + 1).padStart(2, "0")}</span>
+              <span class="nav-text">${escapeHTML(chapter.title)}</span>
+            </button>
+          </li>
+        `).join("") || `<li class="empty">没有匹配到内容</li>`;
+      }
+
+      function buildSectionStrip(chapter) {
+        if (!chapter.sections.length) {
+          els.sectionStrip.innerHTML = `<span class="tag">本章暂无小节标题</span>`;
+          return;
         }
-      });
+        els.sectionStrip.innerHTML = chapter.sections.map((section) => `
+          <button class="section-chip" type="button" data-section="${escapeHTML(section.title)}">${escapeHTML(section.title)}</button>
+        `).join("");
+      }
 
-      function handleFile(file) {
+      function renderFocus(index) {
+        if (!state.chapters.length) return;
+        state.current = Math.max(0, Math.min(index, state.chapters.length - 1));
+        const chapter = state.chapters[state.current];
+        els.lessonKicker.textContent = `Chapter ${String(state.current + 1).padStart(2, "0")}`;
+        els.lessonTitle.textContent = chapter.title;
+        els.lessonMeta.innerHTML = `
+          <span class="tag">${chapter.sections.length || 1} 个小节</span>
+          <span class="tag">${chapter.body.length} 字符</span>
+        `;
+        buildSectionStrip(chapter);
+        els.lessonBody.innerHTML = renderMarkdown(`## ${chapter.title}\n\n${chapter.body}`);
+        els.lessonBody.scrollTop = 0;
+        els.prevBtn.disabled = state.current === 0;
+        els.nextBtn.disabled = state.current === state.chapters.length - 1;
+        els.progressText.textContent = `${state.current + 1} / ${state.chapters.length} · 键盘 ← / → 可切换章节`;
+        renderNav();
+      }
+
+      function renderFlow() {
+        els.flowTitle.textContent = state.title;
+        els.flowContent.innerHTML = state.chapters.map((chapter, index) => `
+          <section class="flow-section" id="${escapeHTML(chapter.id)}">
+            ${renderMarkdown(`## ${String(index + 1).padStart(2, "0")} ${chapter.title}\n\n${chapter.body}`, { headingIds: true, headingSeed: index })}
+          </section>
+        `).join("");
+      }
+
+      function renderRail() {
+        const quickItems = [
+          ["先读题干", "先看定位词，再串联题干逻辑推主题。"],
+          ["转折优先", "but / however / now 后面往往是答案区。"],
+          ["时间反转", "题干与原文时间对立时，重点常在新时间附近。"],
+          ["答案气质", "some / may / partly 这类缓和语气要优先留意。"],
+          ["例证题", "别选例子本身，找例子支撑的观点。"]
+        ];
+        els.quickList.innerHTML = quickItems.map(([title, body]) => `
+          <div class="quick-card"><strong>${escapeHTML(title)}</strong><br>${escapeHTML(body)}</div>
+        `).join("");
+        els.statChapters.textContent = state.chapters.length;
+        els.statSections.textContent = state.chapters.reduce((sum, chapter) => sum + chapter.sections.length, 0);
+      }
+
+      function setMode(mode) {
+        state.mode = mode;
+        const flow = mode === "flow";
+        els.focusView.classList.toggle("hidden", flow);
+        els.flowView.classList.toggle("hidden", !flow);
+        els.focusModeBtn.classList.toggle("active", !flow);
+        els.flowModeBtn.classList.toggle("active", flow);
+        renderNav();
+        if (flow) {
+          requestAnimationFrame(() => {
+            scrollFlowToChapter(state.current);
+          });
+        }
+      }
+
+      function scrollFlowToChapter(index) {
+        const chapter = state.chapters[index];
+        if (!chapter) return;
+        const target = document.getElementById(chapter.id);
+        if (!target) return;
+        if (els.flowView.scrollHeight > els.flowView.clientHeight + 4) {
+          els.flowView.scrollTop = Math.max(0, target.offsetTop - els.flowView.offsetTop - 24);
+        } else {
+          target.scrollIntoView({ block: "start" });
+        }
+      }
+
+      function toggleTestMode() {
+        state.test = !state.test;
+        document.body.classList.toggle("test-mode", state.test);
+        els.testModeBtn.classList.toggle("active", state.test);
+      }
+
+      function loadMarkdown(md) {
+        const parsed = parseMarkdownDocument(md);
+        state.title = parsed.title;
+        state.chapters = parsed.chapters;
+        state.current = 0;
+        document.title = state.title;
+        els.chapterCount.textContent = `${state.chapters.length} 章`;
+        renderFocus(0);
+        renderFlow();
+        renderRail();
+      }
+
+      async function loadDefaultMarkdown() {
+        const embedded = $("embeddedMarkdown").textContent.trim();
+        loadMarkdown(embedded);
+        try {
+          const response = await fetch("英语阅读笔记.md", { cache: "no-store" });
+          if (!response.ok) return;
+          const text = await response.text();
+          if (text.trim() && text.trim() !== embedded.trim()) {
+            loadMarkdown(text);
+          }
+        } catch (error) {
+          // file:// 打开时浏览器会拦截同目录读取，此时使用内置笔记。
+        }
+      }
+
+      function readFile(file) {
         const reader = new FileReader();
-        reader.onload = function(e) {
-          const text = e.target.result;
-          parseAndRenderApp(text);
-          uploaderContainer.style.opacity = '0';
-          setTimeout(() => {
-            uploaderContainer.style.display = 'none';
-          }, 300);
+        reader.onload = () => {
+          loadMarkdown(String(reader.result || ""));
+          els.uploader.classList.remove("active");
         };
         reader.readAsText(file);
       }
-    }
 
-    // ==========================================
-    // 🎨 UI 渲染模块 (Card & Sidebar Rendering)
-    // ==========================================
-    
-    // 渲染侧边栏目录
-    function renderSidebar() {
-      const sidebarList = document.getElementById("sentence-list");
-      const badge = document.getElementById("card-count-badge");
-      sidebarList.innerHTML = "";
-      
-      badge.textContent = `${appState.sentences.length} 句`;
-
-      appState.sentences.forEach((sentence, idx) => {
-        const li = document.createElement("li");
-        li.className = `sidebar-item ${idx === appState.currentIndex ? 'active' : ''}`;
-        li.textContent = sentence.title;
-        li.onclick = () => {
-          if (appState.viewMode !== 'card') {
-            switchViewMode('card');
+      function bindEvents() {
+        els.navList.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-index]");
+          if (!button) return;
+          const index = Number(button.dataset.index);
+          renderFocus(index);
+          if (state.mode === "flow") {
+            scrollFlowToChapter(index);
+          } else {
+            setMode("focus");
           }
-          renderCard(idx);
-        };
-        sidebarList.appendChild(li);
-      });
-    }
+        });
 
-    // 渲染指定索引的卡片
-    function renderCard(index) {
-      if (index < 0 || index >= appState.sentences.length) return;
-      appState.currentIndex = index;
+        els.sectionStrip.addEventListener("click", (event) => {
+          const button = event.target.closest("[data-section]");
+          if (!button) return;
+          const headings = [...els.lessonBody.querySelectorAll("h3, h4")];
+          const target = headings.find((heading) => heading.textContent.trim() === button.dataset.section);
+          if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+        });
 
-      const sidebarItems = document.querySelectorAll(".sidebar-item");
-      sidebarItems.forEach((item, idx) => {
-        if (idx === index) item.classList.add("active");
-        else item.classList.remove("active");
-      });
+        els.searchInput.addEventListener("input", () => {
+          state.query = els.searchInput.value.trim();
+          renderNav();
+        });
 
-      const sentence = appState.sentences[index];
-      const cardContainer = document.getElementById("container-card-mode");
-      
-      cardContainer.innerHTML = `
-        <div class="sentence-card active">
-          
-          <!-- 卡片头部 -->
-          <div class="card-header">
-            <h3 class="card-title sans-text">
-              <span class="badge">NO.${String(index + 1).padStart(2, '0')}</span>
-              ${sentence.title}
-            </h3>
-            <span style="font-size:12px; color:var(--text-muted); font-weight:500;">
-              ${index + 1} / ${appState.sentences.length}
-            </span>
-          </div>
+        els.prevBtn.addEventListener("click", () => renderFocus(state.current - 1));
+        els.nextBtn.addEventListener("click", () => renderFocus(state.current + 1));
+        els.focusModeBtn.addEventListener("click", () => setMode("focus"));
+        els.flowModeBtn.addEventListener("click", () => setMode("flow"));
+        els.testModeBtn.addEventListener("click", toggleTestMode);
+        els.printBtn.addEventListener("click", () => {
+          setMode("flow");
+          setTimeout(() => window.print(), 80);
+        });
+        els.importBtn.addEventListener("click", () => els.uploader.classList.add("active"));
+        els.closeUploadBtn.addEventListener("click", () => els.uploader.classList.remove("active"));
+        els.chooseFileBtn.addEventListener("click", () => els.fileInput.click());
+        els.fileInput.addEventListener("change", () => {
+          if (els.fileInput.files && els.fileInput.files[0]) readFile(els.fileInput.files[0]);
+        });
+        els.themeBtn.addEventListener("click", () => {
+          const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+          setTheme(current === "dark" ? "light" : "dark");
+        });
 
-          <div class="card-body">
-            
-            <!-- 区域 1：英文原句区 -->
-            <div class="zone-original">
-              <p class="quote-content serif-text">${sentence.original}</p>
-            </div>
+        ["dragenter", "dragover"].forEach((name) => {
+          els.dropZone.addEventListener(name, (event) => {
+            event.preventDefault();
+            els.dropZone.style.borderColor = "var(--accent)";
+          });
+        });
+        ["dragleave", "drop"].forEach((name) => {
+          els.dropZone.addEventListener(name, (event) => {
+            event.preventDefault();
+            els.dropZone.style.borderColor = "";
+          });
+        });
+        els.dropZone.addEventListener("drop", (event) => {
+          const file = event.dataTransfer.files && event.dataTransfer.files[0];
+          if (file) readFile(file);
+        });
 
-            <!-- 区域 2：双栏区域 -->
-            <div class="zone-middle">
-              
-              <!-- 左侧：句法解码 -->
-              <div class="column-zone column-left">
-                <h4 class="zone-title sans-text">
-                  <svg viewBox="0 0 24 24"><path d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M19,19H5V5H19V19M7,7H17V9H7V7M7,11H17V13H7V11M7,15H14V17H7V15Z"/></svg>
-                  句法精细解码 (Syntax Analysis)
-                </h4>
-                <div class="markdown-body sans-text">
-                  ${sentence.syntaxHTML || '<p style="color:var(--text-muted); font-style:italic;">暂无句法拆解信息</p>'}
-                </div>
-              </div>
+        document.addEventListener("keydown", (event) => {
+          if (event.target && ["INPUT", "TEXTAREA"].includes(event.target.tagName)) return;
+          if (event.key === "ArrowLeft") renderFocus(state.current - 1);
+          if (event.key === "ArrowRight") renderFocus(state.current + 1);
+        });
 
-              <!-- 右侧：核心词汇 -->
-              <div class="column-zone column-right">
-                <h4 class="zone-title sans-text">
-                  <svg viewBox="0 0 24 24"><path d="M17,3H7A2,2 0 0,0 5,5V21L12,18L19,21V5C19,3.89 18.1,3 17,3M17,18L12,15.82L7,18V5H17V18Z"/></svg>
-                  核心词汇速记 (Vocabulary)
-                </h4>
-                <div class="markdown-body sans-text">
-                  ${sentence.vocabHTML || '<p style="color:var(--text-muted); font-style:italic;">暂无核心词汇整理</p>'}
-                </div>
-              </div>
-
-            </div>
-
-            <!-- 区域 3：底部翻译与做题启示 -->
-            <div class="zone-translation">
-              <h4 class="zone-title sans-text">
-                <svg viewBox="0 0 24 24"><path d="M12.87,15.07L10.33,12.56L10.36,12.53C12.1,10.59 13.34,8.36 14.07,6H17V4H10V2H8V4H1V6H12.17C11.5,7.92 10.44,9.75 9,11.35C8.07,10.32 7.3,9.19 6.69,8H4.69C5.42,9.63 6.42,11.17 7.67,12.56L2.58,17.58L4,19L9,14L12.11,17.11L12.87,15.07M18.5,10H16.5L12,22H14L15.12,19H19.87L21,22H23L18.5,10M15.88,17L17.5,12.67L19.12,17H15.88Z"/></svg>
-                参考译文与做题启示 (Translation & Insights)
-              </h4>
-              <div class="markdown-body sans-text">
-                ${sentence.translationHTML || '<p style="color:var(--text-muted); font-style:italic;">暂无翻译参考</p>'}
-              </div>
-            </div>
-
-          </div>
-
-          <!-- 卡片底部导航控制栏 -->
-          <div class="card-footer no-print">
-            <button class="btn" onclick="prevCard()" ${index === 0 ? 'disabled' : ''}>
-              <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z"/></svg>
-              上一句
-            </button>
-            <span style="font-size:12px; color:var(--text-muted); font-weight:500;">
-              键盘左右键 [← / →] 可快速翻页
-            </span>
-            <button class="btn" onclick="nextCard()" ${index === appState.sentences.length - 1 ? 'disabled' : ''}>
-              下一句
-              <svg style="width:14px; height:14px; fill:currentColor;" viewBox="0 0 24 24"><path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z"/></svg>
-            </button>
-          </div>
-
-        </div>
-      `;
-      // 如果自测模式已启用，确保新渲染的 DOM 也正确遮罩
-      if (appState.isTestMode) {
-        document.body.classList.add("test-masked");
-      }
-    }
-
-    // 渲染长卷模式内容 (PDF 打印模板)
-    function renderFlowMode(docTitle, docDesc) {
-      const flowContainer = document.getElementById("flow-content-target");
-      flowContainer.innerHTML = "";
-
-      const headerDiv = document.createElement("div");
-      headerDiv.className = "flow-header";
-      headerDiv.innerHTML = `
-        <h1>${docTitle}</h1>
-        <p>${docDesc || '考研英语高分复习笔记 · 排版系统打印版'}</p>
-      `;
-      flowContainer.appendChild(headerDiv);
-
-      appState.sentences.forEach((sentence, index) => {
-        const itemDiv = document.createElement("div");
-        itemDiv.className = "flow-card-item";
-        itemDiv.innerHTML = `
-          <div class="flow-card-title sans-text">
-            <span>NO.${String(index + 1).padStart(2, '0')} ${sentence.title}</span>
-            <span class="no-print" style="font-size:12px; font-weight:normal; color:var(--accent-primary); cursor:pointer;" onclick="switchViewMode('card'); renderCard(${index});">
-              在卡片模式中刷这句 →
-            </span>
-          </div>
-          
-          <div class="flow-original serif-text">${sentence.original}</div>
-          
-          <div class="flow-sections">
-            <div style="margin-bottom:16px;">
-              <h4 class="zone-title" style="margin-bottom:8px;">📌 句法精细解码</h4>
-              <div class="markdown-body sans-text">${sentence.syntaxHTML}</div>
-            </div>
-            
-            <div style="margin-bottom:16px;">
-              <h4 class="zone-title" style="margin-bottom:8px;">📝 核心词汇速记</h4>
-              <div class="markdown-body sans-text">${sentence.vocabHTML}</div>
-            </div>
-            
-            <div>
-              <h4 class="zone-title" style="margin-bottom:8px;">🎯 参考译文与做题启示</h4>
-              <div class="markdown-body sans-text">${sentence.translationHTML}</div>
-            </div>
-          </div>
-        `;
-        flowContainer.appendChild(itemDiv);
-      });
-    }
-
-    // 显示空数据状态
-    function showEmptyState() {
-      const cardContainer = document.getElementById("container-card-mode");
-      cardContainer.innerHTML = `
-        <div style="display:flex; flex-direction:column; align-items:center; justify-content:center; flex:1; text-align:center; padding:48px;">
-          <div style="font-size:48px; margin-bottom:16px;">📂</div>
-          <h3 style="margin-bottom:8px;">未解析到有效的长难句卡片</h3>
-          <p style="color:var(--text-secondary); font-size:14px; max-width:400px; line-height:1.6;">
-            请确保您的 <strong>`长难句手记.md`</strong> 包含以 <code>## 标题</code> 开始的句子分区，并按照指定模版编写。
-          </p>
-        </div>
-      `;
-    }
-
-    // ==========================================
-    // 💫 高级微交互控制 (Transitions & Toggles)
-    // ==========================================
-    
-    function nextCard() {
-      if (appState.currentIndex < appState.sentences.length - 1) {
-        renderCard(appState.currentIndex + 1);
-      }
-    }
-
-    function prevCard() {
-      if (appState.currentIndex > 0) {
-        renderCard(appState.currentIndex - 1);
-      }
-    }
-
-    function handleKeyDown(e) {
-      if (appState.viewMode !== 'card') return;
-      if (e.key === "ArrowLeft") {
-        prevCard();
-      } else if (e.key === "ArrowRight") {
-        nextCard();
-      }
-    }
-    document.removeEventListener("keydown", handleKeyDown);
-    document.addEventListener("keydown", handleKeyDown);
-
-    function switchViewMode(mode) {
-      appState.viewMode = mode;
-      
-      const cardBtn = document.getElementById("btn-card-mode");
-      const flowBtn = document.getElementById("btn-flow-mode");
-      
-      const cardContainer = document.getElementById("container-card-mode");
-      const flowContainer = document.getElementById("container-flow-mode");
-      const sidebar = document.getElementById("app-sidebar");
-
-      if (mode === 'card') {
-        cardBtn.classList.add("btn-active");
-        flowBtn.classList.remove("btn-active");
-        
-        cardContainer.style.display = "flex";
-        flowContainer.style.display = "none";
-        sidebar.style.width = "var(--sidebar-width)";
-        sidebar.style.opacity = "1";
-        
-        renderCard(appState.currentIndex);
-      } else {
-        flowBtn.classList.add("btn-active");
-        cardBtn.classList.remove("btn-active");
-        
-        flowContainer.style.display = "block";
-        cardContainer.style.display = "none";
-        sidebar.style.width = "0";
-        sidebar.style.opacity = "0";
-      }
-    }
-
-    function handleSystemThemeChange(e) {
-      if (!sessionStorage.getItem('theme-preference')) {
-        setTheme(e.matches ? 'dark' : 'light');
-      }
-    }
-
-    // 初始化系统/时间自动跟随 (使用 sessionStorage 实现 Session 级别的覆盖缓存，极具弹性)
-    function initTheme() {
-      if (window.matchMedia) {
-        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
-        mediaQuery.removeEventListener('change', handleSystemThemeChange);
-        mediaQuery.addEventListener('change', handleSystemThemeChange);
-      }
-
-      const savedTheme = sessionStorage.getItem('theme-preference');
-      if (savedTheme) {
-        setTheme(savedTheme);
-        return;
-      }
-
-      const hour = new Date().getHours();
-      const isNightTime = hour >= 18 || hour < 6;
-      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-
-      if (isNightTime || prefersDark) {
-        setTheme('dark');
-      } else {
-        setTheme('light');
-      }
-    }
-
-    // 切换亮/暗视觉主题
-    function toggleTheme() {
-      const activeTheme = document.documentElement.getAttribute("data-theme");
-      const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
-      setTheme(newTheme);
-      // 保存至 sessionStorage，确保仅针对本次会话标签有效，冷启动重新根据时间智能渲染
-      sessionStorage.setItem('theme-preference', newTheme);
-    }
-
-    function setTheme(theme) {
-      appState.currentTheme = theme;
-      document.documentElement.setAttribute("data-theme", theme);
-      
-      const themeIcon = document.getElementById("theme-icon");
-      if (!themeIcon) return;
-      // 暗色模式 → 显示月亮图标（提示：点击可切换到亮色）
-      // 亮色模式 → 显示太阳图标（提示：点击可切换到暗色）
-      if (theme === 'dark') {
-        themeIcon.innerHTML = `<path d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95Z" />`;
-      } else {
-        themeIcon.innerHTML = `<path d="M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`;
-      }
-    }
-
-    // Active Recall 模糊自测模式切换
-    function toggleTestMode() {
-      appState.isTestMode = !appState.isTestMode;
-      const testBtn = document.getElementById("btn-test-mode");
-      
-      if (appState.isTestMode) {
-        testBtn.classList.add("btn-active");
-        document.body.classList.add("test-masked");
-      } else {
-        testBtn.classList.remove("btn-active");
-        document.body.classList.remove("test-masked");
-        
-        // 清除所有移动端触摸 Reveal 的状态
-        document.querySelectorAll('.reveal-touch').forEach(el => {
-          el.classList.remove('reveal-touch');
+        els.lessonBody.addEventListener("click", () => {
+          if (state.test) els.lessonBody.classList.toggle("reveal");
         });
       }
-    }
 
-    // 移动端触摸自测模糊区域解锁支持 (事件委托，只绑定一次)
-    function setupMobileTouchEvents() {
-      if (window.mobileTouchEventsSetupDone) return;
-      window.mobileTouchEventsSetupDone = true;
-
-      let touchStartX = 0;
-      let touchStartY = 0;
-      
-      document.addEventListener('touchstart', (e) => {
-        const target = e.target.closest('.column-right, .zone-translation, .flow-sections');
-        if (target) {
-          touchStartX = e.touches[0].clientX;
-          touchStartY = e.touches[0].clientY;
-        }
-      }, { passive: true });
-      
-      document.addEventListener('touchend', (e) => {
-        const target = e.target.closest('.column-right, .zone-translation, .flow-sections');
-        if (target && appState.isTestMode) {
-          const touchEndX = e.changedTouches[0].clientX;
-          const touchEndY = e.changedTouches[0].clientY;
-          const distanceX = Math.abs(touchEndX - touchStartX);
-          const distanceY = Math.abs(touchEndY - touchStartY);
-          
-          // 如果手指滑动距离极小 (说明是 Tap 而非 Swipe) 则切换 unblur 状态
-          if (distanceX < 8 && distanceY < 8) {
-            target.classList.toggle('reveal-touch');
-          }
-        }
-      });
-    }
+      initTheme();
+      bindEvents();
+      loadDefaultMarkdown();
+    })();
   </script>
 </body>
 </html>
