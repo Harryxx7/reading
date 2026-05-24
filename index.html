@@ -984,12 +984,8 @@
 
     // 页面初始化
     document.addEventListener("DOMContentLoaded", () => {
-      // 1. 初始化暗黑模式设置
-      if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        setTheme('dark');
-      } else {
-        setTheme('light');
-      }
+      // 1. 初始化系统自动追踪及暗黑模式设置
+      initTheme();
 
       // 2. 注册本地文件选择器事件
       setupFileUploader();
@@ -1419,14 +1415,43 @@
       }
     }
 
+    // 初始化系统/时间追踪及暗黑模式设置
+    function initTheme() {
+      // 1. 监听系统 preferences 改变
+      if (window.matchMedia) {
+        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+          if (!localStorage.getItem('theme-preference')) {
+            setTheme(e.matches ? 'dark' : 'light');
+          }
+        });
+      }
+
+      // 2. 获取用户手动设置覆盖
+      const savedTheme = localStorage.getItem('theme-preference');
+      if (savedTheme) {
+        setTheme(savedTheme);
+        return;
+      }
+
+      // 3. 时间与系统偏好双重自动追踪 (白天白色，晚上 18点 - 次日6点 黑色)
+      const hour = new Date().getHours();
+      const isNightTime = hour >= 18 || hour < 6;
+      const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+      if (isNightTime || prefersDark) {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+    }
+
     // 切换亮/暗视觉主题
     function toggleTheme() {
       const activeTheme = document.documentElement.getAttribute("data-theme");
-      if (activeTheme === 'dark') {
-        setTheme('light');
-      } else {
-        setTheme('dark');
-      }
+      const newTheme = activeTheme === 'dark' ? 'light' : 'dark';
+      setTheme(newTheme);
+      // 保存用户手动选择，覆盖自动追踪
+      localStorage.setItem('theme-preference', newTheme);
     }
 
     function setTheme(theme) {
