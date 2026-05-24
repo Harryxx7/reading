@@ -694,6 +694,14 @@
       cursor: default;
     }
 
+    .test-masked .column-right.reveal-touch,
+    .test-masked .zone-translation.reveal-touch,
+    .test-masked .flow-sections.reveal-touch {
+      filter: blur(0) !important;
+      opacity: 1 !important;
+      cursor: default;
+    }
+
     /* ==========================================
        📱 移动端与响应式适配
        ========================================== */
@@ -1226,7 +1234,7 @@
     };
 
     // 页面初始化
-    document.addEventListener("DOMContentLoaded", () => {
+    function initApp() {
       // 1. 初始化系统自动追踪及暗黑模式设置
       initTheme();
 
@@ -1238,14 +1246,26 @@
 
       // 4. 后台静默拉取同级目录下的长难句手记.md (热更新与数据同步)
       loadDefaultMarkdown();
-    });
+
+      // 5. 绑定移动端触摸事件 (事件委托)
+      setupMobileTouchEvents();
+    }
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initApp);
+    } else {
+      initApp();
+    }
 
     // 从 HTML 内嵌的 markdown 源码进行极速解析
     function renderFromEmbeddedSource() {
       const sourceEl = document.getElementById("markdown-source");
       if (sourceEl) {
-        // 进行纯数据解析，填充 appState 并挂载侧边栏，不暴力重构首张卡片（避免瞬间重绘闪烁）
+        // 解析数据填充 appState（含侧边栏更新），然后用正确数据渲染第一张卡片
         parseMarkdownData(sourceEl.textContent);
+        if (appState.sentences.length > 0) {
+          renderCard(0);
+        }
       }
     }
 
@@ -1280,12 +1300,14 @@
       for (let k = 1; k < blocks.length; k++) {
         const block = blocks[k];
         const blockLines = block.split(/\r?\n/);
-        const title = blockLines[0].trim();
+        const title = (blockLines[0] || "").trim() || "未命名句子";
         
         let originalText = "";
         const quoteBlockMatches = block.match(/>\s*([^\r\n]+(\r?\n>[^\r\n]+)*)/);
         if (quoteBlockMatches) {
           originalText = quoteBlockMatches[1].replace(/>/g, '').replace(/\r?\n/g, ' ').trim();
+        } else {
+          originalText = "（未检测到英文原句，请检查 Markdown 格式）";
         }
 
         let syntaxMarkdown = "";
@@ -1294,19 +1316,38 @@
         
         // 兼容 Windows CRLF 换行进行 H3 版块拆分
         const subSections = block.split(/\r?\n###\s+/);
-        for(let s = 1; s < subSections.length; s++) {
-          const subSec = subSections[s];
-          const secTitleLine = subSec.split(/\r?\n/)[0].trim();
-          const secContent = subSec.substring(subSec.indexOf('\n') + 1).trim();
-          
-          if (secTitleLine.includes("句法") || secTitleLine.includes("拆解") || secTitleLine.includes("结构") || secTitleLine.includes("syntax")) {
-            syntaxMarkdown = secContent;
-          } else if (secTitleLine.includes("词汇") || secTitleLine.includes("单词") || secTitleLine.includes("vocab") || secTitleLine.includes("word")) {
-            vocabMarkdown = secContent;
-          } else if (secTitleLine.includes("翻译") || secTitleLine.includes("译文") || secTitleLine.includes("启示") || secTitleLine.includes("心得")) {
-            translationMarkdown = secContent;
+        if (subSections.length <= 1) {
+          // Completely malformed block or has no ### headers
+          // Let's extract everything after the title line and put it in syntaxMarkdown
+          const newlineIndex = block.indexOf('\n');
+          const remainingContent = newlineIndex !== -1 ? block.substring(newlineIndex + 1).trim() : "";
+          if (remainingContent) {
+            syntaxMarkdown = "*⚠️ 该区块未检测到标准 ### 子小标题，已作为原始 Markdown 载入：*\n\n" + remainingContent;
           } else {
-            translationMarkdown += `\n\n### ${secTitleLine}\n${secContent}`;
+            syntaxMarkdown = "*⚠️ 该区块无内容信息*";
+          }
+        } else {
+          for(let s = 1; s < subSections.length; s++) {
+            const subSec = subSections[s];
+            const secLines = subSec.split(/\r?\n/);
+            const secTitleLine = (secLines[0] || "").trim();
+            
+            const newlineIndex = subSec.indexOf('\n');
+            const secContent = newlineIndex !== -1 ? subSec.substring(newlineIndex + 1).trim() : "";
+            
+            if (secTitleLine.includes("句法") || secTitleLine.includes("拆解") || secTitleLine.includes("结构") || secTitleLine.includes("syntax")) {
+              syntaxMarkdown = secContent;
+            } else if (secTitleLine.includes("词汇") || secTitleLine.includes("单词") || secTitleLine.includes("vocab") || secTitleLine.includes("word")) {
+              vocabMarkdown = secContent;
+            } else if (secTitleLine.includes("翻译") || secTitleLine.includes("译文") || secTitleLine.includes("启示") || secTitleLine.includes("心得")) {
+              translationMarkdown = secContent;
+            } else {
+              if (translationMarkdown) {
+                translationMarkdown += `\n\n### ${secTitleLine}\n${secContent}`;
+              } else {
+                translationMarkdown = `### ${secTitleLine}\n${secContent}`;
+              }
+            }
           }
         }
 
@@ -1324,8 +1365,13 @@
       appState.sentences = sentences;
       document.title = `${docTitle} - 暖色宣纸风`;
 
-      // 仅在首次静默渲染之后执行：渲染长卷，并绑定菜单
+      // 渲染长卷模式内容
       renderFlowMode(docTitle, docDesc);
+      
+      // 同步更新侧边栏目录与角标（首屏时即刻生效）
+      const badge = document.getElementById("card-count-badge");
+      if (badge) badge.textContent = `${sentences.length} 句`;
+      renderSidebar();
     }
 
     // 安全解析 Markdown (防止 CDN 挂掉或离线时脚本崩溃)
@@ -1344,66 +1390,147 @@
     function simpleMarkdownToHTML(text) {
       if (!text) return '';
       
-      let html = '';
       const lines = text.split(/\r?\n/);
+      let html = '';
       let inTable = false;
-      let inList = false;
+      let tableHeaderParsed = false;
+      let listStack = []; // stores { type: 'ul'|'ol', indent: number }
+
+      function closeLists(targetIndent) {
+        while (listStack.length > 0 && listStack[listStack.length - 1].indent > targetIndent) {
+          const list = listStack.pop();
+          html += `</${list.type}>`;
+        }
+      }
+
+      function closeAllLists() {
+        closeLists(-1);
+      }
+
+      function closeTable() {
+        if (inTable) {
+          inTable = false;
+          tableHeaderParsed = false;
+          html += '</table>';
+        }
+      }
 
       for (let i = 0; i < lines.length; i++) {
-        let line = lines[i].trim();
-        if (!line) {
-          if (inTable) { inTable = false; html += '</table>'; }
-          if (inList) { inList = false; html += '</ul>'; }
+        const rawLine = lines[i];
+        const trimmedLine = rawLine.trim();
+
+        if (trimmedLine === '') {
+          closeTable();
+          closeAllLists();
           continue;
         }
 
-        // 处理表格
-        if (line.startsWith('|')) {
-          if (inList) { inList = false; html += '</ul>'; }
+        // 1. Table support
+        if (trimmedLine.startsWith('|')) {
+          closeAllLists();
+          if (trimmedLine.includes('---')) {
+            // Separator line
+            if (!inTable) {
+              inTable = true;
+              html += '<table>';
+            }
+            continue;
+          }
           if (!inTable) {
             inTable = true;
             html += '<table>';
           }
-          if (line.includes('---')) continue;
-
-          const cells = line.split('|').slice(1, -1);
+          
+          const cells = trimmedLine.split('|').slice(1, -1);
           html += '<tr>';
+          const isHeader = !tableHeaderParsed && (i + 1 < lines.length && lines[i + 1].trim().startsWith('|') && lines[i + 1].includes('---'));
+          const cellTag = isHeader ? 'th' : 'td';
+          if (isHeader) {
+            tableHeaderParsed = true;
+          }
           for (let cell of cells) {
-            const parsedCell = parseInlineMarkdown(cell.trim());
-            html += `<td>${parsedCell}</td>`;
+            html += `<${cellTag}>${parseInlineMarkdown(cell.trim())}</${cellTag}>`;
           }
           html += '</tr>';
-        } 
-        // 处理无序列表
-        else if (line.startsWith('* ') || line.startsWith('- ')) {
-          if (inTable) { inTable = false; html += '</table>'; }
-          if (!inList) {
-            inList = true;
-            html += '<ul>';
-          }
-          const parsedLine = parseInlineMarkdown(line.substring(2).trim());
-          html += `<li>${parsedLine}</li>`;
-        } 
-        // 处理普通段落
-        else {
-          if (inTable) { inTable = false; html += '</table>'; }
-          if (inList) { inList = false; html += '</ul>'; }
-          
-          if (line.startsWith('###')) {
-            html += `<h4 class="zone-title sans-text">${parseInlineMarkdown(line.replace(/#/g, '').trim())}</h4>`;
-          } else {
-            html += `<p>${parseInlineMarkdown(line)}</p>`;
-          }
+          continue;
         }
+
+        // If not a table line, close table
+        closeTable();
+
+        // 2. Blockquote support
+        if (trimmedLine.startsWith('>')) {
+          closeAllLists();
+          const quoteContent = trimmedLine.replace(/^>\s*/, '');
+          html += `<blockquote><p>${parseInlineMarkdown(quoteContent)}</p></blockquote>`;
+          continue;
+        }
+
+        // 3. Lists support (unordered and ordered)
+        const indentMatch = rawLine.match(/^(\s*)/);
+        const indent = indentMatch ? indentMatch[1].length : 0;
+        
+        const ulMatch = trimmedLine.match(/^([\*\-\+])\s+(.*)$/);
+        const olMatch = trimmedLine.match(/^(\d+)\.\s+(.*)$/);
+
+        if (ulMatch || olMatch) {
+          const listType = ulMatch ? 'ul' : 'ol';
+          const content = ulMatch ? ulMatch[2] : olMatch[2];
+
+          if (listStack.length === 0) {
+            listStack.push({ type: listType, indent: indent });
+            html += `<${listType}>`;
+          } else {
+            const currentList = listStack[listStack.length - 1];
+            if (indent > currentList.indent) {
+              listStack.push({ type: listType, indent: indent });
+              html += `<${listType}>`;
+            } else if (indent < currentList.indent) {
+              closeLists(indent);
+              if (listStack.length > 0 && listStack[listStack.length - 1].type !== listType) {
+                const prev = listStack.pop();
+                html += `</${prev.type}><${listType}>`;
+                listStack.push({ type: listType, indent: indent });
+              }
+            } else {
+              if (currentList.type !== listType) {
+                listStack.pop();
+                html += `</${currentList.type}><${listType}>`;
+                listStack.push({ type: listType, indent: indent });
+              }
+            }
+          }
+
+          html += `<li>${parseInlineMarkdown(content)}</li>`;
+          continue;
+        }
+
+        // Not a list item, close lists
+        closeAllLists();
+
+        // 4. Headers support
+        const headerMatch = trimmedLine.match(/^(#{1,6})\s+(.*)$/);
+        if (headerMatch) {
+          const level = headerMatch[1].length;
+          const content = headerMatch[2];
+          const hTag = level === 1 ? 'h2' : level === 2 ? 'h3' : level === 3 ? 'h4' : 'h5';
+          const hClass = level === 3 ? 'class="zone-title sans-text"' : '';
+          html += `<${hTag} ${hClass}>${parseInlineMarkdown(content)}</${hTag}>`;
+          continue;
+        }
+
+        // 5. Paragraph support
+        html += `<p>${parseInlineMarkdown(trimmedLine)}</p>`;
       }
 
-      if (inTable) html += '</table>';
-      if (inList) html += '</ul>';
+      closeTable();
+      closeAllLists();
       return html;
     }
 
     // 解析行内 Markdown (加粗、斜体、行内代码)
     function parseInlineMarkdown(text) {
+      if (!text) return '';
       return text
         .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
         .replace(/\*(.*?)\*/g, '<em>$1</em>')
@@ -1413,8 +1540,16 @@
     // 主解析并重绘接口
     function parseAndRenderApp(mdText) {
       parseMarkdownData(mdText);
-      renderSidebar();
-      renderCard(appState.currentIndex);
+      if (appState.sentences.length === 0) {
+        showEmptyState();
+        const sidebarList = document.getElementById("sentence-list");
+        if (sidebarList) sidebarList.innerHTML = "";
+        const badge = document.getElementById("card-count-badge");
+        if (badge) badge.textContent = "0 句";
+      } else {
+        renderSidebar();
+        renderCard(appState.currentIndex);
+      }
     }
 
     // 后台静默拉取
@@ -1442,9 +1577,14 @@
 
     // 拖拽与文件选择器逻辑
     function setupFileUploader() {
+      if (window.fileUploaderSetupDone) return;
+      
       const dropZone = document.getElementById("drop-zone");
       const fileSelector = document.getElementById("file-selector");
       const uploaderContainer = document.getElementById("local-file-uploader");
+      if (!dropZone || !fileSelector) return;
+
+      window.fileUploaderSetupDone = true;
 
       ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
         dropZone.addEventListener(eventName, preventDefaults, false);
@@ -1610,6 +1750,10 @@
 
         </div>
       `;
+      // 如果自测模式已启用，确保新渲染的 DOM 也正确遮罩
+      if (appState.isTestMode) {
+        document.body.classList.add("test-masked");
+      }
     }
 
     // 渲染长卷模式内容 (PDF 打印模板)
@@ -1689,14 +1833,16 @@
       }
     }
 
-    document.addEventListener("keydown", (e) => {
+    function handleKeyDown(e) {
       if (appState.viewMode !== 'card') return;
       if (e.key === "ArrowLeft") {
         prevCard();
       } else if (e.key === "ArrowRight") {
         nextCard();
       }
-    });
+    }
+    document.removeEventListener("keydown", handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
 
     function switchViewMode(mode) {
       appState.viewMode = mode;
@@ -1729,14 +1875,18 @@
       }
     }
 
+    function handleSystemThemeChange(e) {
+      if (!sessionStorage.getItem('theme-preference')) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    }
+
     // 初始化系统/时间自动跟随 (使用 sessionStorage 实现 Session 级别的覆盖缓存，极具弹性)
     function initTheme() {
       if (window.matchMedia) {
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-          if (!sessionStorage.getItem('theme-preference')) {
-            setTheme(e.matches ? 'dark' : 'light');
-          }
-        });
+        const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+        mediaQuery.removeEventListener('change', handleSystemThemeChange);
+        mediaQuery.addEventListener('change', handleSystemThemeChange);
       }
 
       const savedTheme = sessionStorage.getItem('theme-preference');
@@ -1770,10 +1920,13 @@
       document.documentElement.setAttribute("data-theme", theme);
       
       const themeIcon = document.getElementById("theme-icon");
+      if (!themeIcon) return;
+      // 暗色模式 → 显示月亮图标（提示：点击可切换到亮色）
+      // 亮色模式 → 显示太阳图标（提示：点击可切换到暗色）
       if (theme === 'dark') {
-        themeIcon.innerHTML = `<path d="M12,18C11.11,18 10.26,17.8 9.5,17.45C11.56,16.5 13,14.42 13,12C13,9.58 11.56,7.5 9.5,6.55C10.26,6.2 11.11,6 12,6A6,6 0 0,1 18,12A6,6 0 0,1 12,18M20,8.69V4H15.31L12,0.69L8.69,4H4V8.69L0.69,12L4,15.31V20H8.69L12,23.31L15.31,20H20V15.31L23.31,12L20,8.69Z" />`;
+        themeIcon.innerHTML = `<path d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M18.97,15.95C19.8,15.87 20.69,17.05 20.16,17.8C19.84,18.25 19.5,18.67 19.08,19.07C15.17,23 8.84,23 4.94,19.07C1.03,15.17 1.03,8.83 4.94,4.93C5.34,4.53 5.76,4.17 6.21,3.85C6.96,3.32 8.14,4.21 8.06,5.04C7.79,7.9 8.75,10.87 10.95,13.06C13.14,15.26 16.1,16.22 18.97,15.95Z" />`;
       } else {
-        themeIcon.innerHTML = `<path d="M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,3.5A8.5,8.5 0 1,0 20.5,12A8.5,8.5 0 0,0 12,3.5M12,0A12,12 0 1,1 0,12A12,12 0 0,1 12,0Z" />`;
+        themeIcon.innerHTML = `<path d="M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M12,4A8,8 0 0,0 4,12A8,8 0 0,0 12,20A8,8 0 0,0 20,12A8,8 0 0,0 12,4Z" />`;
       }
     }
 
@@ -1788,7 +1941,44 @@
       } else {
         testBtn.classList.remove("btn-active");
         document.body.classList.remove("test-masked");
+        
+        // 清除所有移动端触摸 Reveal 的状态
+        document.querySelectorAll('.reveal-touch').forEach(el => {
+          el.classList.remove('reveal-touch');
+        });
       }
+    }
+
+    // 移动端触摸自测模糊区域解锁支持 (事件委托，只绑定一次)
+    function setupMobileTouchEvents() {
+      if (window.mobileTouchEventsSetupDone) return;
+      window.mobileTouchEventsSetupDone = true;
+
+      let touchStartX = 0;
+      let touchStartY = 0;
+      
+      document.addEventListener('touchstart', (e) => {
+        const target = e.target.closest('.column-right, .zone-translation, .flow-sections');
+        if (target) {
+          touchStartX = e.touches[0].clientX;
+          touchStartY = e.touches[0].clientY;
+        }
+      }, { passive: true });
+      
+      document.addEventListener('touchend', (e) => {
+        const target = e.target.closest('.column-right, .zone-translation, .flow-sections');
+        if (target && appState.isTestMode) {
+          const touchEndX = e.changedTouches[0].clientX;
+          const touchEndY = e.changedTouches[0].clientY;
+          const distanceX = Math.abs(touchEndX - touchStartX);
+          const distanceY = Math.abs(touchEndY - touchStartY);
+          
+          // 如果手指滑动距离极小 (说明是 Tap 而非 Swipe) 则切换 unblur 状态
+          if (distanceX < 8 && distanceY < 8) {
+            target.classList.toggle('reveal-touch');
+          }
+        }
+      });
     }
   </script>
 </body>
